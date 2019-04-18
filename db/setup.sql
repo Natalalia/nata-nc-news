@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS nata_nc_news;
-CREATE DATABASE nata_nc_news;
+DROP DATABASE IF EXISTS nata-nc-news;
+CREATE DATABASE nata-nc-news;
 
-DROP DATABASE IF EXISTS nata_nc_news_test;
-CREATE DATABASE nata_nc_news_test;
+DROP DATABASE IF EXISTS nata-nc-news-test;
+CREATE DATABASE nata-nc-news-test;
