@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     articlesTable.text("body").notNullable();
     articlesTable.integer("votes").defaultTo(0);
     articlesTable
-      .string("topics")
+      .string("topic")
       .references("slug")
       .inTable("topics");
     articlesTable
