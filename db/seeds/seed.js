@@ -1,4 +1,4 @@
-const { topics } = require("../data");
+const { topicsData } = require("../data");
 
 exports.seed = (knex, Promise) => {
   return knex.migrate
@@ -6,7 +6,7 @@ exports.seed = (knex, Promise) => {
     .then(() => knex.migrate.latest())
     .then(() => {
       return knex("topics")
-        .insert(topics)
+        .insert(topicsData)
         .returning("*");
     });
 };
