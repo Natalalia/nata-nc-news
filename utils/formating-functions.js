@@ -1,11 +1,10 @@
-const createUserTopicRef = function(topics, users, keyTopics, keyUsers) {
-  if (topics.length === 0 || users.length === 0) return {};
-  const topicUser = []
-    
-    keyUsers: users[0][keyUsers],
-    keyTopics: topics[0][keyTopics]
-  
-  return topicUser;
+const changeKey = function(list, keyToChange, newKey) {
+  const newList = [...list];
+  newList.forEach(function(item) {
+    item[newKey] = item[keyToChange];
+    delete item[keyToChange];
+  });
+  return newList;
 };
 
-module.exports = { createUserTopicRef };
+module.exports = { changeKey };
