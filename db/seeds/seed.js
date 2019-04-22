@@ -4,7 +4,12 @@ const {
   articlesData,
   commentsData
 } = require("../data");
-const { newFormatDate, changeKey } = require("../../utils/formating-functions");
+const {
+  newFormatDate,
+  changeKey,
+  createObjectRef,
+  formatData
+} = require("../../utils/formating-functions");
 
 exports.seed = (knex, Promise) => {
   return knex.migrate
@@ -16,21 +21,28 @@ exports.seed = (knex, Promise) => {
         .returning("*");
     })
     .then(topicsRows => {
-      //console.log(topicsRows);
       return knex("users")
         .insert(usersData)
         .returning("*");
     })
     .then(usersRows => {
-      //console.log(usersRows);
-      const newArticlesData = newFormatDate(articlesData);
+      const newArticlesDate = newFormatDate(articlesData);
       return knex("articles")
-        .insert(newArticlesData)
+        .insert(newArticlesDate)
         .returning("*");
     })
     .then(articlesRow => {
-      //console.log(articlesRow);
-      const newKeyComments = changeKey(commentsData, "created_by", "author");
-      console.log(newKeyComments);
+      const newCommentsDate = newFormatDate(commentsData);
+      const newKeyComments = changeKey(newCommentsDate, "created_by", "author");
+      const commentsRef = createObjectRef(articlesRow, "title", "article_id");
+      const formatedComments = formatData(
+        newKeyComments,
+        commentsRef,
+        "article_id",
+        "belongs_to"
+      );
+      return knex("comments")
+        .insert(formatedComments)
+        .returning("*");
     });
 };
