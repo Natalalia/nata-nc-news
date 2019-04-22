@@ -1,5 +1,10 @@
-const { topicsData, usersData } = require("../data");
-const newArticlesData = require("../../utils/newDate");
+const {
+  topicsData,
+  usersData,
+  articlesData,
+  commentsData
+} = require("../data");
+const { newFormatDate, changeKey } = require("../../utils/formating-functions");
 
 exports.seed = (knex, Promise) => {
   return knex.migrate
@@ -18,9 +23,14 @@ exports.seed = (knex, Promise) => {
     })
     .then(usersRows => {
       //console.log(usersRows);
-      console.log(newArticlesData);
+      const newArticlesData = newFormatDate(articlesData);
       return knex("articles")
         .insert(newArticlesData)
         .returning("*");
+    })
+    .then(articlesRow => {
+      //console.log(articlesRow);
+      const newKeyComments = changeKey(commentsData, "created_by", "author");
+      console.log(newKeyComments);
     });
 };

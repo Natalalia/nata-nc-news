@@ -1,3 +1,10 @@
+const newFormatDate = function(information) {
+  return information.map(element => {
+    element["created_at"] = new Date(element["created_at"]);
+    return element;
+  });
+};
+
 const changeKey = function(list, keyToChange, newKey) {
   const newList = [...list];
   newList.forEach(function(item) {
@@ -7,4 +14,4 @@ const changeKey = function(list, keyToChange, newKey) {
   return newList;
 };
 
-module.exports = { changeKey };
+module.exports = { newFormatDate, changeKey };
