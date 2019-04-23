@@ -41,6 +41,7 @@ exports.seed = (knex, Promise) => {
         "article_id",
         "belongs_to"
       );
+
       return knex("comments")
         .insert(formatedComments)
         .returning("*");

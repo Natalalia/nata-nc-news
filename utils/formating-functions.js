@@ -1,7 +1,8 @@
 const newFormatDate = function(information) {
   return information.map(element => {
-    element["created_at"] = new Date(element["created_at"]);
-    return element;
+    let newElement = { ...element };
+    newElement["created_at"] = new Date(newElement["created_at"]);
+    return newElement;
   });
 };
 
