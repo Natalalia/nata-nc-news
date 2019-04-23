@@ -71,6 +71,15 @@ describe.only("/", () => {
               votes: 100,
               comment_count: 13
             });
+            expect(body.articles[8]).to.eql({
+              author: "butter_bridge",
+              title: "They're not exactly dogs, are they?",
+              article_id: 9,
+              topic: "mitch",
+              created_at: "1986-11-23T12:21:54.171Z",
+              votes: 0,
+              comment_count: 2
+            });
           });
       });
     });

@@ -9,14 +9,17 @@ const fetchAllArticles = () => {
         element["comment_count"] = 0;
         return element;
       });
-      const article_id = articlesNewKey[0]["article_id"];
-      return connection("comments")
-        .count("article_id")
-        .where({ article_id: article_id })
-        .then(result => {
-          articlesNewKey[0]["comment_count"] = parseInt(result[0]["count"]);
-          return articlesNewKey;
-        });
+      const articlesWithCounter = articlesNewKey.map(article => {
+        const article_id = article["article_id"];
+        return connection("comments")
+          .count("article_id")
+          .where({ article_id: article_id })
+          .then(result => {
+            article["comment_count"] = parseInt(result[0]["count"]);
+            return article;
+          });
+      });
+      return Promise.all(articlesWithCounter);
     });
 };
 
