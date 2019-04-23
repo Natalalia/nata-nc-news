@@ -90,6 +90,14 @@ describe.only("/", () => {
             expect(body.articles[0].author).to.equal("icellusedkars");
           });
       });
+      it("GET status: 200 - filters the articles by the topic value specified in the query", () => {
+        return request
+          .get("/api/articles?topic=cats")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.articles[0].topic).to.equal("cats");
+          });
+      });
     });
   });
 });

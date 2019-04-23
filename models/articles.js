@@ -1,11 +1,12 @@
 const connection = require("../db/connection");
 
-const fetchAllArticles = ({ author }) => {
+const fetchAllArticles = ({ author, topic }) => {
   return connection
     .select("article_id", "author", "created_at", "title", "topic", "votes")
     .from("articles")
     .modify(query => {
       if (author) query.where({ author });
+      if (topic) query.where({ topic });
     })
     .then(result => {
       const articlesNewKey = result.map(element => {
