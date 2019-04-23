@@ -134,7 +134,7 @@ describe("createObjectRef", () => {
   });
 });
 
-describe.only("formatData", () => {
+describe("formatData", () => {
   it("returns a NEW empty array when an empty array is passed", () => {
     const array = [];
     expect(formatData(array)).to.eql([]);
