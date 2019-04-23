@@ -57,6 +57,22 @@ describe.only("/", () => {
             );
           });
       });
+      it("GET status: 200 - Returns array of articles objects with its correspondent value", () => {
+        return request
+          .get("/api/articles")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.articles[0]).to.eql({
+              author: "butter_bridge",
+              title: "Living in the shadow of a great man",
+              article_id: 1,
+              topic: "mitch",
+              created_at: "2018-11-15T12:21:54.171Z",
+              votes: 100,
+              comment_count: 13
+            });
+          });
+      });
     });
   });
 });

@@ -9,7 +9,14 @@ const fetchAllArticles = () => {
         element["comment_count"] = 0;
         return element;
       });
-      return articlesNewKey;
+      const article_id = articlesNewKey[0]["article_id"];
+      return connection("comments")
+        .count("article_id")
+        .where({ article_id: article_id })
+        .then(result => {
+          articlesNewKey[0]["comment_count"] = parseInt(result[0]["count"]);
+          return articlesNewKey;
+        });
     });
 };
 
