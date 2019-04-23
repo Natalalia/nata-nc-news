@@ -82,6 +82,14 @@ describe.only("/", () => {
             });
           });
       });
+      it("GET status: 200 - filters the articles by the username in an author query", () => {
+        return request
+          .get("/api/articles?author=icellusedkars")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.articles[0].author).to.equal("icellusedkars");
+          });
+      });
     });
   });
 });

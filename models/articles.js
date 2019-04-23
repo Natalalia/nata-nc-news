@@ -1,9 +1,12 @@
 const connection = require("../db/connection");
 
-const fetchAllArticles = () => {
+const fetchAllArticles = ({ author }) => {
   return connection
     .select("article_id", "author", "created_at", "title", "topic", "votes")
     .from("articles")
+    .modify(query => {
+      if (author) query.where({ author });
+    })
     .then(result => {
       const articlesNewKey = result.map(element => {
         element["comment_count"] = 0;
