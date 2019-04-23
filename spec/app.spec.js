@@ -9,7 +9,7 @@ const connection = require("../db/connection");
 const request = supertest(app);
 
 describe.only("/", () => {
-  // beforeEach(() => connection.seed.run());
+  beforeEach(() => connection.seed.run());
   after(() => connection.destroy());
 
   describe("/api", () => {
@@ -23,11 +23,11 @@ describe.only("/", () => {
     });
     describe("/topics", () => {
       it("GET status: 200 - Returns an array of all the topics objects", () => {
-        return request(app)
+        return request
           .get("/api/topics")
           .expect(200)
           .then(res => {
-            expect(res.body.topics[0]).to.contain.keys("description", "slug");
+            expect(res.body.topics).to.be.an("array");
           });
       });
     });
