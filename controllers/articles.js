@@ -16,7 +16,9 @@ const getAllArticles = (req, res, next) => {
 };
 
 const getArticleById = (req, res, next) => {
-  fetchArticle();
+  fetchArticle(req.params.article_id).then(article => {
+    res.status(200).send({ article });
+  });
 };
 
 module.exports = { getAllArticles, getArticleById };

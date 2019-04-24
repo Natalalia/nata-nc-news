@@ -148,14 +148,14 @@ describe.only("/", () => {
           });
       });
     });
-    /*
+
     describe("/articles/:article_id", () => {
       it("GET status: 200 - Returns array of article objects with relevant keys", () => {
         return request(app)
-          .get("/api/articles/:article_id")
+          .get("/api/articles/2")
           .expect(200)
           .then(({ body }) => {
-            expect(body.articles[0]).to.contain.keys(
+            expect(body.article).to.contain.keys(
               "author",
               "title",
               "article_id",
@@ -168,6 +168,5 @@ describe.only("/", () => {
           });
       });
     });
-    */
   });
 });

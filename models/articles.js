@@ -30,6 +30,18 @@ const fetchAllArticles = ({ author, topic, sort_by, order }) => {
     });
 };
 
-const fetchArticle = () => {};
+const fetchArticle = article_id => {
+  return connection
+    .select("*")
+    .from("articles")
+    .where("article_id", "=", article_id)
+    .then(articles => {
+      const article = articles[0];
+      return getCountComments(article["article_id"]).then(comment_counter => {
+        article["comment_count"] = comment_counter;
+        return article;
+      });
+    });
+};
 
 module.exports = { fetchAllArticles, fetchArticle };
