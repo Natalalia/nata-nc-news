@@ -36,11 +36,14 @@ const fetchArticle = article_id => {
     .from("articles")
     .where("article_id", "=", article_id)
     .then(articles => {
-      const article = articles[0];
-      return getCountComments(article["article_id"]).then(comment_counter => {
-        article["comment_count"] = comment_counter;
-        return article;
-      });
+      if (articles.length !== 0) {
+        const article = articles[0];
+        return getCountComments(article["article_id"]).then(comment_counter => {
+          article["comment_count"] = comment_counter;
+          return article;
+        });
+      }
+      return Promise.reject("Article not found");
     });
 };
 

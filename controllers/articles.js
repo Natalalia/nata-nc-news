@@ -20,7 +20,13 @@ const getArticleById = (req, res, next) => {
     .then(article => {
       res.status(200).send({ article });
     })
-    .catch(next);
+    .catch(err => {
+      if (err === "Article not found") {
+        res.status(404).send({ msg: err });
+      } else {
+        next(err);
+      }
+    });
 };
 
 module.exports = { getAllArticles, getArticleById };

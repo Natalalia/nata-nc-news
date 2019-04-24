@@ -175,6 +175,14 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Bad Request");
           });
       });
+      it("GET un-existing article_id - status: 404 and error message", () => {
+        return request(app)
+          .get("/api/articles/99999")
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Article not found");
+          });
+      });
     });
   });
 });
