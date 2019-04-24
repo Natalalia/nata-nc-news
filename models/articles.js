@@ -28,4 +28,6 @@ const fetchAllArticles = ({ author, topic, sort_by, order }) => {
     });
 };
 
-module.exports = { fetchAllArticles };
+const fetchArticle = () => {};
+
+module.exports = { fetchAllArticles, fetchArticle };

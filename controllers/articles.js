@@ -1,4 +1,4 @@
-const { fetchAllArticles } = require("../models/articles");
+const { fetchAllArticles, fetchArticle } = require("../models/articles");
 
 const getAllArticles = (req, res, next) => {
   fetchAllArticles(req.query)
@@ -15,4 +15,8 @@ const getAllArticles = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = { getAllArticles };
+const getArticleById = (req, res, next) => {
+  fetchArticle();
+};
+
+module.exports = { getAllArticles, getArticleById };
