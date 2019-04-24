@@ -46,6 +46,21 @@ const fetchArticle = article_id => {
     });
 };
 
-const incrementVote = () => {};
+const incrementVote = (article_id, vote) => {
+  return connection
+    .select("votes")
+    .from("articles")
+    .where("article_id", "=", article_id)
+    .then(votes => {
+      const updatedVotes = votes[0]["votes"] + vote;
+      return connection("articles")
+        .where("article_id", "=", article_id)
+        .update({ votes: updatedVotes })
+        .returning("*")
+        .then(articles => {
+          return articles[0];
+        });
+    });
+};
 
 module.exports = { fetchAllArticles, fetchArticle, incrementVote };

@@ -190,7 +190,7 @@ describe.only("/", () => {
           .send(updateVote)
           .expect(200)
           .then(({ body }) => {
-            expect(body.article).to.contain.keys("inc_votes");
+            expect(body.article.votes).to.eql(102);
           });
       });
     });

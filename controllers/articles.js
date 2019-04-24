@@ -34,7 +34,9 @@ const getArticleById = (req, res, next) => {
 };
 
 const updateVote = (req, res, next) => {
-  incrementVote();
+  incrementVote(req.params.article_id, req.body.inc_votes).then(article => {
+    res.status(200).send({ article });
+  });
 };
 
 module.exports = { getAllArticles, getArticleById, updateVote };
