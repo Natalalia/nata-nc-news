@@ -128,7 +128,7 @@ describe.only("/", () => {
           .get("/api/articles?sort_by=notAColumn")
           .expect(400)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Not request found");
+            expect(body.msg).to.equal("Bad Request");
           });
       });
       it(" GET search for an author that is not in the database - status 404 and error message", () => {
@@ -165,6 +165,14 @@ describe.only("/", () => {
               "votes",
               "comment_count"
             );
+          });
+      });
+      it("GET bad article_id - status: 400 and error message", () => {
+        return request(app)
+          .get("/api/articles/dog")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
           });
       });
     });
