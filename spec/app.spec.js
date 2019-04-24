@@ -148,6 +148,7 @@ describe.only("/", () => {
           });
       });
     });
+    /*
     describe("/articles/:article_id", () => {
       it("GET status: 200 - Returns array of article objects with relevant keys", () => {
         return request(app)
@@ -167,5 +168,6 @@ describe.only("/", () => {
           });
       });
     });
+    */
   });
 });
