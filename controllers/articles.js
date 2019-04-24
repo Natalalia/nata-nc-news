@@ -1,4 +1,8 @@
-const { fetchAllArticles, fetchArticle } = require("../models/articles");
+const {
+  fetchAllArticles,
+  fetchArticle,
+  incrementVote
+} = require("../models/articles");
 
 const getAllArticles = (req, res, next) => {
   fetchAllArticles(req.query)
@@ -29,4 +33,8 @@ const getArticleById = (req, res, next) => {
     });
 };
 
-module.exports = { getAllArticles, getArticleById };
+const updateVote = (req, res, next) => {
+  incrementVote();
+};
+
+module.exports = { getAllArticles, getArticleById, updateVote };

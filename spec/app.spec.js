@@ -183,6 +183,16 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Article not found");
           });
       });
+      it("PATCH status:200 - accepts an object votes which increments votes property", () => {
+        const updateVote = { inc_votes: 2 };
+        return request(app)
+          .patch("/api/articles/1")
+          .send(updateVote)
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.article).to.contain.keys("inc_votes");
+          });
+      });
     });
   });
 });

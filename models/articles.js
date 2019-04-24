@@ -1,5 +1,4 @@
 const connection = require("../db/connection");
-const { createNewKey } = require("../utils/formating-functions");
 
 const getCountComments = function(article_id) {
   return connection("comments")
@@ -47,4 +46,6 @@ const fetchArticle = article_id => {
     });
 };
 
-module.exports = { fetchAllArticles, fetchArticle };
+const incrementVote = () => {};
+
+module.exports = { fetchAllArticles, fetchArticle, incrementVote };
