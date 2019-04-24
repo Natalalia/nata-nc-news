@@ -139,6 +139,14 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Route Not Found");
           });
       });
+      it(" GET search for a topic that is not in the database - status 404 and error message", () => {
+        return request(app)
+          .get("/api/articles?topic=geography")
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Route Not Found");
+          });
+      });
     });
   });
 });
