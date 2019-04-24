@@ -12,6 +12,8 @@ app.all("/*", routeNotFound);
 
 app.use(badRequest);
 
+app.use(routeNotFound);
+
 app.use(handle500);
 
 module.exports = app;

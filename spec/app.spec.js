@@ -123,12 +123,20 @@ describe.only("/", () => {
             });
           });
       });
-      it(" GET sort for a column that does not exist - status 404 and error message", () => {
+      it(" GET sort for a column that does not exist - status 400 and error message", () => {
         return request(app)
           .get("/api/articles?sort_by=notAColumn")
           .expect(400)
           .then(({ body }) => {
             expect(body.msg).to.equal("Not request found");
+          });
+      });
+      it(" GET search for an author that is not in the database - status 404 and error message", () => {
+        return request(app)
+          .get("/api/articles?author=natalia")
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Route Not Found");
           });
       });
     });
