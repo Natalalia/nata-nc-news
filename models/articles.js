@@ -1,6 +1,6 @@
 const connection = require("../db/connection");
 
-const fetchAllArticles = ({ author, topic }) => {
+const fetchAllArticles = ({ author, topic, sort_by, order }) => {
   return connection
     .select("article_id", "author", "created_at", "title", "topic", "votes")
     .from("articles")
@@ -8,6 +8,7 @@ const fetchAllArticles = ({ author, topic }) => {
       if (author) query.where({ author });
       if (topic) query.where({ topic });
     })
+    .orderBy(sort_by || "created_at", order || "desc")
     .then(result => {
       const articlesNewKey = result.map(element => {
         element["comment_count"] = 0;
