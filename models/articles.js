@@ -71,9 +71,12 @@ const fetchArticleComments = (article_id, sort_by, order) => {
     .orderBy(sort_by || "created_at", order || "desc");
 };
 
+const createComment = () => {};
+
 module.exports = {
   fetchAllArticles,
   fetchArticle,
   incrementVote,
-  fetchArticleComments
+  fetchArticleComments,
+  createComment
 };

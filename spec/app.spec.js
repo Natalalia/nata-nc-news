@@ -280,6 +280,20 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Bad Request");
           });
       });
+      it("POST status: 201 - responds with the new comment object", () => {
+        const newPost = {
+          username: "Natalia",
+          body: "Love your literature"
+        };
+        return request(app)
+          .post("/api/articles/2/comments")
+          .send(newPost)
+          .expect(201)
+          .then(({ body }) => {
+            console.log(body);
+            expect(body.article_id.comment).to.contain.keys("username", "body");
+          });
+      });
     });
   });
 });

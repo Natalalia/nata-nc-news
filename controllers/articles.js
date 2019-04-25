@@ -2,7 +2,8 @@ const {
   fetchAllArticles,
   fetchArticle,
   incrementVote,
-  fetchArticleComments
+  fetchArticleComments,
+  createComment
 } = require("../models/articles");
 
 const getAllArticles = (req, res, next) => {
@@ -55,9 +56,14 @@ const getAllArticleComments = (req, res, next) => {
     .catch(next);
 };
 
+const postComment = (req, res, next) => {
+  createComment();
+};
+
 module.exports = {
   getAllArticles,
   getArticleById,
   updateVote,
-  getAllArticleComments
+  getAllArticleComments,
+  postComment
 };
