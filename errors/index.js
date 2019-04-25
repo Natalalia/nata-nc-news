@@ -6,7 +6,11 @@ exports.badRequest = (err, req, res, next) => {
   else next(err);
 };
 
-exports.routeNotFound = (err, req, res, next) => {
+exports.resourceNotFound = (re, req, res, next) => {
+  res.status(404).send({ msg: "Route Not Found" });
+};
+
+exports.routeNotFound = (req, res, next) => {
   res.status(404).send({ msg: "Route Not Found" });
 };
 
