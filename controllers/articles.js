@@ -12,7 +12,7 @@ const getAllArticles = (req, res, next) => {
       if (articles.length === 0) {
         return Promise.reject({
           status: 404,
-          msg: "Not request found"
+          msg: "Articles Not Found"
         });
       }
 
@@ -26,13 +26,7 @@ const getArticleById = (req, res, next) => {
     .then(article => {
       res.status(200).send({ article });
     })
-    .catch(err => {
-      if (err === "Article not found") {
-        res.status(404).send({ msg: err });
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
 const updateVote = (req, res, next) => {
@@ -49,7 +43,7 @@ const getAllArticleComments = (req, res, next) => {
   fetchArticleComments(article_id, sort_by, order)
     .then(comments => {
       if (comments.length === 0) {
-        res.status(404).send({ msg: "Article with no comments" });
+        res.status(200).send({ msg: "No comments yet" });
       }
       res.status(200).send({ comments });
     })

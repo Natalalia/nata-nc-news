@@ -136,7 +136,7 @@ describe.only("/", () => {
           .get("/api/articles?author=natalia")
           .expect(404)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Route Not Found");
+            expect(body.msg).to.equal("Articles Not Found");
           });
       });
       it(" GET search for a topic that is not in the database - status 404 and error message", () => {
@@ -144,7 +144,7 @@ describe.only("/", () => {
           .get("/api/articles?topic=geography")
           .expect(404)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Route Not Found");
+            expect(body.msg).to.equal("Articles Not Found");
           });
       });
     });
@@ -264,12 +264,12 @@ describe.only("/", () => {
             });
           });
       });
-      it("GET article with no comments - status: 404 and an error message", () => {
+      it("GET article with no comments - status: 200 and a message", () => {
         return request(app)
           .get("/api/articles/2/comments")
-          .expect(404)
+          .expect(200)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Article with no comments");
+            expect(body.msg).to.equal("No comments yet");
           });
       });
       it(" GET sort for a column that does not exist - status 400 and error message", () => {
@@ -320,7 +320,7 @@ describe.only("/", () => {
           .send(newPost)
           .expect(404)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Route Not Found");
+            expect(body.msg).to.equal("Element Not Found");
           });
       });
     });
