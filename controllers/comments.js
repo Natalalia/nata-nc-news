@@ -10,7 +10,13 @@ const updateVote = (req, res, next) => {
 
 const deleteComment = (req, res, next) => {
   removeComment(req.params.comment_id)
-    .then(comment => {
+    .then(linesDeleted => {
+      if (linesDeleted === 0) {
+        return Promise.reject({
+          status: 404,
+          msg: "Comment Not Found"
+        });
+      }
       res.sendStatus(204);
     })
     .catch(next);

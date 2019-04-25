@@ -370,6 +370,22 @@ describe.only("/", () => {
           .delete("/api/comments/5")
           .expect(204);
       });
+      it("DELETE a non existing comment - status: 404 and an error message", () => {
+        return request(app)
+          .delete("/api/comments/99999999")
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Comment Not Found");
+          });
+      });
+      it("DELETE an invalid comment - status: 400 and an error message", () => {
+        return request(app)
+          .delete("/api/comments/dog")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
     });
   });
 });
