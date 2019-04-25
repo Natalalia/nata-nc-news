@@ -193,6 +193,37 @@ describe.only("/", () => {
             expect(body.article.votes).to.eql(102);
           });
       });
+      it("PATCH status:200 - accepts an object votes which decrement votes property", () => {
+        const updateVote = { inc_votes: -100 };
+        return request(app)
+          .patch("/api/articles/1")
+          .send(updateVote)
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.article.votes).to.eql(0);
+          });
+      });
+      it("PATCH no inc_votes on request body - status: 400 and error message", () => {
+        const updateVote = {};
+        return request(app)
+          .patch("/api/articles/1")
+          .send(updateVote)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("PATCH invalid inc_votes - status: 400 and error message", () => {
+        const updateVote = { inc_votes: "cat" };
+        return request(app)
+          .patch("/api/articles/1")
+          .send(updateVote)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
     });
+    describe("/articles/article_id/comments", () => {});
   });
 });

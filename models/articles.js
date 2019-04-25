@@ -63,4 +63,11 @@ const incrementVote = (article_id, vote) => {
     });
 };
 
-module.exports = { fetchAllArticles, fetchArticle, incrementVote };
+const fetchAllArticleComments = () => {};
+
+module.exports = {
+  fetchAllArticles,
+  fetchArticle,
+  incrementVote,
+  fetchAllArticleComments
+};

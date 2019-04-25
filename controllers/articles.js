@@ -34,9 +34,20 @@ const getArticleById = (req, res, next) => {
 };
 
 const updateVote = (req, res, next) => {
-  incrementVote(req.params.article_id, req.body.inc_votes).then(article => {
-    res.status(200).send({ article });
-  });
+  incrementVote(req.params.article_id, req.body.inc_votes)
+    .then(article => {
+      res.status(200).send({ article });
+    })
+    .catch(next);
 };
 
-module.exports = { getAllArticles, getArticleById, updateVote };
+const getAllArticleComments = (req, res, next) => {
+  fetchArticleComments();
+};
+
+module.exports = {
+  getAllArticles,
+  getArticleById,
+  updateVote,
+  getAllArticleComments
+};
