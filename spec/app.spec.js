@@ -365,6 +365,11 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Bad Request");
           });
       });
+      it("DELETE status: 204 - delete the given comment by its id", () => {
+        return request(app)
+          .delete("/api/comments/5")
+          .expect(204);
+      });
     });
   });
 });

@@ -1,4 +1,4 @@
-const { changeVote, eraseComment } = require("../models/comments");
+const { changeVote, removeComment } = require("../models/comments");
 
 const updateVote = (req, res, next) => {
   changeVote(req.params.comment_id, req.body.inc_votes)
@@ -9,7 +9,11 @@ const updateVote = (req, res, next) => {
 };
 
 const deleteComment = (req, res, next) => {
-  eraseComment();
+  removeComment(req.params.comment_id)
+    .then(comment => {
+      res.sendStatus(204);
+    })
+    .catch(next);
 };
 
 module.exports = { updateVote, deleteComment };

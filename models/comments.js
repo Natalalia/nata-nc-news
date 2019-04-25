@@ -17,6 +17,11 @@ const changeVote = (comment_id, vote) => {
     });
 };
 
-const eraseComment = () => {};
+const removeComment = comment_id => {
+  return connection("comments")
+    .where("comment_id", "=", comment_id)
+    .del()
+    .returning("*");
+};
 
-module.exports = { changeVote, eraseComment };
+module.exports = { changeVote, removeComment };
