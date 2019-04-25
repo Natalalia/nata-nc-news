@@ -272,6 +272,14 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Article with no comments");
           });
       });
+      it(" GET sort for a column that does not exist - status 400 and error message", () => {
+        return request(app)
+          .get("/api/articles/1/comments?sort_by=notAColumn")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
     });
   });
 });
