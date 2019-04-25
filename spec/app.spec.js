@@ -387,5 +387,15 @@ describe.only("/", () => {
           });
       });
     });
+    describe("/users/:username", () => {
+      it(" GET status: 200 - Responds with a user object with its correspondent keys", () => {
+        return request(app)
+          .get("/api/users/butter_bridge")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.user).to.contain.keys("username", "avatar_url", "name");
+          });
+      });
+    });
   });
 });
