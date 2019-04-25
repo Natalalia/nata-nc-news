@@ -57,7 +57,11 @@ const getAllArticleComments = (req, res, next) => {
 };
 
 const postComment = (req, res, next) => {
-  createComment();
+  createComment(req.params.article_id, req.body.username, req.body.body)
+    .then(comment => {
+      res.status(201).send({ comment: comment[0] });
+    })
+    .catch(next);
 };
 
 module.exports = {

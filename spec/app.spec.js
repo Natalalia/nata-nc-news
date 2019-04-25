@@ -282,7 +282,7 @@ describe.only("/", () => {
       });
       it("POST status: 201 - responds with the new comment object", () => {
         const newPost = {
-          username: "Natalia",
+          username: "butter_bridge",
           body: "Love your literature"
         };
         return request(app)
@@ -290,8 +290,14 @@ describe.only("/", () => {
           .send(newPost)
           .expect(201)
           .then(({ body }) => {
-            console.log(body);
-            expect(body.article_id.comment).to.contain.keys("username", "body");
+            expect(body.comment).to.contain.keys(
+              "comment_id",
+              "votes",
+              "created_at",
+              "author",
+              "body"
+            );
+            expect(body.comment.body).to.equal("Love your literature");
           });
       });
     });

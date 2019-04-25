@@ -71,7 +71,16 @@ const fetchArticleComments = (article_id, sort_by, order) => {
     .orderBy(sort_by || "created_at", order || "desc");
 };
 
-const createComment = () => {};
+const createComment = (article_id, username, body) => {
+  const newPost = {
+    author: username,
+    body: body,
+    article_id: article_id
+  };
+  return connection("comments")
+    .insert(newPost)
+    .returning("*");
+};
 
 module.exports = {
   fetchAllArticles,
