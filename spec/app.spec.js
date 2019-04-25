@@ -324,8 +324,27 @@ describe.only("/", () => {
           });
       });
     });
-    describe('/comments/:comment_id', ()=>{
-      it('PATCH status:200')
-    })
+    describe("/comments/:comment_id", () => {
+      it("PATCH status:200 - accepts an object votes which increments/decrements votes property", () => {
+        const updateVote = { inc_votes: 2 };
+        return request(app)
+          .patch("/api/comments/1")
+          .send(updateVote)
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.comment.votes).to.eql(18);
+          });
+      });
+      it("PATCH status:200 - accepts an object votes which increments/decrements votes property", () => {
+        const updateVote = { inc_votes: -16 };
+        return request(app)
+          .patch("/api/comments/1")
+          .send(updateVote)
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.comment.votes).to.eql(0);
+          });
+      });
+    });
   });
 });
