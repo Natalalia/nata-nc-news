@@ -324,5 +324,8 @@ describe.only("/", () => {
           });
       });
     });
+    describe('/comments/:comment_id', ()=>{
+      it('PATCH status:200')
+    })
   });
 });
