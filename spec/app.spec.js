@@ -230,7 +230,6 @@ describe.only("/", () => {
           .get("/api/articles/1/comments")
           .expect(200)
           .then(({ body }) => {
-            console.log(body.comments);
             expect(body.comments[0]).to.contain.keys(
               "comment_id",
               "votes",
@@ -238,6 +237,16 @@ describe.only("/", () => {
               "author",
               "body"
             );
+          });
+      });
+      it("GET status: 200 - sorts the comments by any valid column, defaults to date", () => {
+        return request(app)
+          .get("/api/articles/1/comments?sort_by=author")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.comments).to.be.sortedBy("author", {
+              descending: false
+            });
           });
       });
     });

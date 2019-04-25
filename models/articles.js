@@ -63,11 +63,12 @@ const incrementVote = (article_id, vote) => {
     });
 };
 
-const fetchArticleComments = article_id => {
-  return connection
+const fetchArticleComments = (article_id, sort_by) => {
+  return connection("comments")
     .select("comment_id", "votes", "created_at", "author", "body")
     .from("comments")
-    .where("article_id", "=", article_id);
+    .where("article_id", "=", article_id)
+    .orderBy(sort_by || "created_at");
 };
 
 module.exports = {

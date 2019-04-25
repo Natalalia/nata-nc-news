@@ -43,7 +43,9 @@ const updateVote = (req, res, next) => {
 };
 
 const getAllArticleComments = (req, res, next) => {
-  fetchArticleComments(req.params.article_id).then(comments => {
+  const { article_id } = req.params;
+  const { sort_by, order } = req.query;
+  fetchArticleComments(article_id, sort_by, order).then(comments => {
     res.status(200).send({ comments });
   });
 };
