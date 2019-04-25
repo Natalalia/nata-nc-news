@@ -245,7 +245,22 @@ describe.only("/", () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.comments).to.be.sortedBy("author", {
-              descending: false
+              descending: true
+            });
+          });
+      });
+      it("GET status: 200 - orders the comments for ascending or descending, defaults to descending", () => {
+        return request(app)
+          .get("/api/articles/1/comments?order=desc")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.comments[0]).to.eql({
+              author: "butter_bridge",
+              body:
+                "The beautiful thing about treasure is that it exists. Got to find out what kind of sheets these are; not cotton, not rayon, silky.",
+              created_at: "2016-11-22T12:36:03.389Z",
+              votes: 14,
+              comment_id: 2
             });
           });
       });
