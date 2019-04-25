@@ -396,6 +396,14 @@ describe.only("/", () => {
             expect(body.user).to.contain.keys("username", "avatar_url", "name");
           });
       });
+      it("GET bad username - status: 404 and error message", () => {
+        return request(app)
+          .get("/api/users/dog")
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("User not found");
+          });
+      });
     });
   });
 });
