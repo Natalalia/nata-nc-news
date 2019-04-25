@@ -17,4 +17,6 @@ const changeVote = (comment_id, vote) => {
     });
 };
 
-module.exports = { changeVote };
+const eraseComment = () => {};
+
+module.exports = { changeVote, eraseComment };
