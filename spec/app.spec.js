@@ -345,6 +345,26 @@ describe.only("/", () => {
             expect(body.comment.votes).to.eql(0);
           });
       });
+      it("PATCH no inc_votes on request body - status: 400 and error message", () => {
+        const updateVote = {};
+        return request(app)
+          .patch("/api/comments/1")
+          .send(updateVote)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("PATCH invalid inc_votes - status: 400 and error message", () => {
+        const updateVote = { inc_votes: "cat" };
+        return request(app)
+          .patch("/api/comments/1")
+          .send(updateVote)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
     });
   });
 });
