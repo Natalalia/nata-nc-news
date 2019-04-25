@@ -45,9 +45,14 @@ const updateVote = (req, res, next) => {
 const getAllArticleComments = (req, res, next) => {
   const { article_id } = req.params;
   const { sort_by, order } = req.query;
-  fetchArticleComments(article_id, sort_by, order).then(comments => {
-    res.status(200).send({ comments });
-  });
+  fetchArticleComments(article_id, sort_by, order)
+    .then(comments => {
+      if (comments.length === 0) {
+        res.status(404).send({ msg: "Article with no comments" });
+      }
+      res.status(200).send({ comments });
+    })
+    .catch(next);
 };
 
 module.exports = {

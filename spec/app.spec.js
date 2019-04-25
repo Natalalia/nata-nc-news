@@ -264,6 +264,14 @@ describe.only("/", () => {
             });
           });
       });
+      it("GET article with no comments - status: 404 and an error message", () => {
+        return request(app)
+          .get("/api/articles/2/comments")
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Article with no comments");
+          });
+      });
     });
   });
 });
