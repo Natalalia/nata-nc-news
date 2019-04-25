@@ -224,6 +224,22 @@ describe.only("/", () => {
           });
       });
     });
-    describe("/articles/article_id/comments", () => {});
+    describe("/articles/article_id/comments", () => {
+      it("GET status: 200 - Returns array of comments objects with relevant keys", () => {
+        return request(app)
+          .get("/api/articles/1/comments")
+          .expect(200)
+          .then(({ body }) => {
+            console.log(body.comments);
+            expect(body.comments[0]).to.contain.keys(
+              "comment_id",
+              "votes",
+              "created_at",
+              "author",
+              "body"
+            );
+          });
+      });
+    });
   });
 });

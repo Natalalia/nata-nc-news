@@ -1,7 +1,8 @@
 const {
   fetchAllArticles,
   fetchArticle,
-  incrementVote
+  incrementVote,
+  fetchArticleComments
 } = require("../models/articles");
 
 const getAllArticles = (req, res, next) => {
@@ -42,7 +43,9 @@ const updateVote = (req, res, next) => {
 };
 
 const getAllArticleComments = (req, res, next) => {
-  fetchArticleComments();
+  fetchArticleComments(req.params.article_id).then(comments => {
+    res.status(200).send({ comments });
+  });
 };
 
 module.exports = {

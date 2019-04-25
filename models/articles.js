@@ -63,11 +63,16 @@ const incrementVote = (article_id, vote) => {
     });
 };
 
-const fetchAllArticleComments = () => {};
+const fetchArticleComments = article_id => {
+  return connection
+    .select("comment_id", "votes", "created_at", "author", "body")
+    .from("comments")
+    .where("article_id", "=", article_id);
+};
 
 module.exports = {
   fetchAllArticles,
   fetchArticle,
   incrementVote,
-  fetchAllArticleComments
+  fetchArticleComments
 };
