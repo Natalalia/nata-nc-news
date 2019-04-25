@@ -300,6 +300,29 @@ describe.only("/", () => {
             expect(body.comment.body).to.equal("Love your literature");
           });
       });
+      it("POST an empty comment on request body - status: 400 and error message", () => {
+        const newPost = {};
+        return request(app)
+          .post("/api/articles/1/comments")
+          .send(newPost)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("POST a non existing author in the db on request body - status: 404 and error message", () => {
+        const newPost = {
+          username: "nata",
+          body: "Love your literature"
+        };
+        return request(app)
+          .post("/api/articles/1/comments")
+          .send(newPost)
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Route Not Found");
+          });
+      });
     });
   });
 });
