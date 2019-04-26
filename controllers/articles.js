@@ -6,17 +6,43 @@ const {
   createComment
 } = require("../models/articles");
 
+const { fetchUser } = require("../models/users");
+
+const { fetchTopic } = require("../models/topics");
+
 const getAllArticles = (req, res, next) => {
-  fetchAllArticles(req.query)
-    .then(articles => {
-      if (articles.length === 0) {
+  const author = req.query.author;
+  const topic = req.query.topic;
+  const checkQueries = [];
+  if (author) {
+    checkQueries.push(fetchUser(author));
+  } else {
+    checkQueries.push(Promise.resolve("no author request"));
+  }
+  if (topic) {
+    checkQueries.push(fetchTopic(topic));
+  } else {
+    checkQueries.push(Promise.resolve("no topic request"));
+  }
+  return Promise.all(checkQueries)
+    .then(queries => {
+      const author = queries[0];
+      const topic = queries[1];
+      if (!author) {
         return Promise.reject({
           status: 404,
-          msg: "Articles Not Found"
+          msg: "Author Not Found"
         });
       }
-
-      res.status(200).send({ articles });
+      if (!topic) {
+        return Promise.reject({
+          status: 404,
+          msg: "Topic Not Found"
+        });
+      }
+      return fetchAllArticles(req.query).then(articles => {
+        res.status(200).send({ articles });
+      });
     })
     .catch(next);
 };

@@ -4,4 +4,14 @@ const fetchAllTopics = () => {
   return connection.select("*").from("topics");
 };
 
-module.exports = { fetchAllTopics };
+const fetchTopic = slug => {
+  return connection
+    .select("*")
+    .from("topics")
+    .where("slug", "=", slug)
+    .then(topics => {
+      return topics[0];
+    });
+};
+
+module.exports = { fetchAllTopics, fetchTopic };

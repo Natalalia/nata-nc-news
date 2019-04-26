@@ -91,6 +91,15 @@ describe.only("/", () => {
             expect(body.articles[0].author).to.equal("icellusedkars");
           });
       });
+      it("GET status: 200 - search for an author query that does not have articles", () => {
+        return request(app)
+          .get("/api/articles?author=lurker")
+          .expect(200)
+          .then(({ body }) => {
+            console.log(body);
+            expect(body.articles).to.have.lengthOf(0);
+          });
+      });
       it("GET status: 200 - filters the articles by the topic value specified in the query", () => {
         return request(app)
           .get("/api/articles?topic=cats")
@@ -136,7 +145,7 @@ describe.only("/", () => {
           .get("/api/articles?author=natalia")
           .expect(404)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Articles Not Found");
+            expect(body.msg).to.equal("Author Not Found");
           });
       });
       it(" GET search for a topic that is not in the database - status 404 and error message", () => {
@@ -144,7 +153,7 @@ describe.only("/", () => {
           .get("/api/articles?topic=geography")
           .expect(404)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Articles Not Found");
+            expect(body.msg).to.equal("Topic Not Found");
           });
       });
     });
