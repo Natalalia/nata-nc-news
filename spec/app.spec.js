@@ -159,7 +159,7 @@ describe.only("/", () => {
     });
 
     describe("/articles/:article_id", () => {
-      it("GET status: 200 - Returns array of article objects with relevant keys", () => {
+      it("GET status: 200 - Returns an article object with relevant keys", () => {
         return request(app)
           .get("/api/articles/2")
           .expect(200)
