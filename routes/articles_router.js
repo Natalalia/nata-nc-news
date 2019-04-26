@@ -16,7 +16,8 @@ articlesRouter
 articlesRouter
   .route("/:article_id")
   .get(getArticleById)
-  .patch(updateVote);
+  .patch(updateVote)
+  .all(methodNotAllowed);
 
 articlesRouter
   .route("/:article_id/comments")

@@ -171,14 +171,6 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Method Not Allowed");
           });
       });
-      it("PUT status: 405 - Returns relevant message", () => {
-        return request(app)
-          .put("/api/articles")
-          .expect(405)
-          .then(({ body }) => {
-            expect(body.msg).to.equal("Method Not Allowed");
-          });
-      });
     });
 
     describe("/articles/:article_id", () => {
@@ -253,6 +245,14 @@ describe.only("/", () => {
           .expect(400)
           .then(({ body }) => {
             expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("PUT status: 405 - Returns relevant message", () => {
+        return request(app)
+          .put("/api/articles/1")
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Method Not Allowed");
           });
       });
     });
