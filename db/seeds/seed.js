@@ -20,12 +20,12 @@ exports.seed = (knex, Promise) => {
         .insert(topicsData)
         .returning("*");
     })
-    .then(topicsRows => {
+    .then(() => {
       return knex("users")
         .insert(usersData)
         .returning("*");
     })
-    .then(usersRows => {
+    .then(() => {
       const newArticlesDate = newFormatDate(articlesData);
       return knex("articles")
         .insert(newArticlesDate)
