@@ -32,6 +32,14 @@ describe.only("/", () => {
             expect(body.topics[0]).to.contain.keys("description", "slug");
           });
       });
+      it("PATCH status: 405 - Returns relevant message", () => {
+        return request(app)
+          .patch("/api/topics")
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Method Not Allowed");
+          });
+      });
     });
     describe("/articles", () => {
       it("GET status: 200 - Returns an array of article objects", () => {
