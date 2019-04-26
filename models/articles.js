@@ -47,6 +47,9 @@ const fetchArticle = article_id => {
 };
 
 const incrementVote = (article_id, vote) => {
+  if (vote === undefined) {
+    vote = 0;
+  }
   return connection
     .select("votes")
     .from("articles")

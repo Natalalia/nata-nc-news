@@ -227,14 +227,14 @@ describe.only("/", () => {
             expect(body.article.votes).to.eql(0);
           });
       });
-      it("PATCH no inc_votes on request body - status: 400 and error message", () => {
+      it("PATCH status: 200 - no inc_votes on request body returns the article object with not modifications", () => {
         const updateVote = {};
         return request(app)
           .patch("/api/articles/1")
           .send(updateVote)
-          .expect(400)
+          .expect(200)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Bad Request");
+            expect(body.article.votes).to.eql(body.article.votes);
           });
       });
       it("PATCH invalid inc_votes - status: 400 and error message", () => {
