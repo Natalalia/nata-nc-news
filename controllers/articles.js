@@ -68,9 +68,6 @@ const getAllArticleComments = (req, res, next) => {
   const { sort_by, order } = req.query;
   fetchArticleComments(article_id, sort_by, order)
     .then(comments => {
-      if (comments.length === 0) {
-        res.status(200).send({ msg: "No comments yet" });
-      }
       res.status(200).send({ comments });
     })
     .catch(next);

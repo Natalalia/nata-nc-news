@@ -301,7 +301,7 @@ describe.only("/", () => {
           .get("/api/articles/2/comments")
           .expect(200)
           .then(({ body }) => {
-            expect(body.msg).to.equal("No comments yet");
+            expect(body.comments).to.have.lengthOf(0);
           });
       });
       it(" GET sort for a column that does not exist - status 400 and error message", () => {
