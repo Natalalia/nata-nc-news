@@ -3,8 +3,8 @@ const apiRouter = require("./routes/api");
 const {
   routeNotFound,
   handle500,
-  badRequest,
-  resourceNotFound
+  handlePsqlError,
+  handleCustomError
 } = require("./errors");
 
 const app = express();
@@ -15,9 +15,9 @@ app.use("/api", apiRouter);
 
 app.all("/*", routeNotFound);
 
-app.use(badRequest);
+app.use(handlePsqlError);
 
-app.use(resourceNotFound);
+app.use(handleCustomError);
 
 app.use(handle500);
 
