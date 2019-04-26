@@ -96,7 +96,6 @@ describe.only("/", () => {
           .get("/api/articles?author=lurker")
           .expect(200)
           .then(({ body }) => {
-            console.log(body);
             expect(body.articles).to.have.lengthOf(0);
           });
       });
