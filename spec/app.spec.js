@@ -483,6 +483,14 @@ describe.only("/", () => {
             expect(body.msg).to.equal("User not found");
           });
       });
+      it("PUT status 405 - Returns relevant message", () => {
+        return request(app)
+          .put("/api/users/butter_bridge")
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Method Not Allowed");
+          });
+      });
     });
   });
 });
