@@ -457,6 +457,14 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Bad Request");
           });
       });
+      it("PUT status 405 - Returns relevant message", () => {
+        return request(app)
+          .put("/api/comments/1")
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Method Not Allowed");
+          });
+      });
     });
     describe("/users/:username", () => {
       it(" GET status: 200 - Responds with a user object with its correspondent keys", () => {
