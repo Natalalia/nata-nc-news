@@ -341,7 +341,10 @@ describe.only("/", () => {
           });
       });
       it("POST an empty comment on request body - status: 400 and error message", () => {
-        const newPost = {};
+        const newPost = {
+          username: "butter_bridge",
+          body: ""
+        };
         return request(app)
           .post("/api/articles/1/comments")
           .send(newPost)

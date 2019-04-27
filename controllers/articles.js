@@ -79,6 +79,12 @@ const getAllArticleComments = (req, res, next) => {
 const postComment = (req, res, next) => {
   createComment(req.params.article_id, req.body.username, req.body.body)
     .then(comment => {
+      if (comment[0]["body"] === "") {
+        return Promise.reject({
+          status: 400,
+          msg: "Bad Request"
+        });
+      }
       res.status(201).send({ comment: comment[0] });
     })
     .catch(next);
