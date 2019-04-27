@@ -10,21 +10,26 @@ const { fetchUser } = require("../models/users");
 
 const { fetchTopic } = require("../models/topics");
 
+const queriesPromises = (username, slug) => {
+  const checkQueries = [];
+  if (username) {
+    checkQueries.push(fetchUser(username));
+  } else {
+    checkQueries.push("no author request");
+  }
+  if (slug) {
+    checkQueries.push(fetchTopic(slug));
+  } else {
+    checkQueries.push("no topic request");
+  }
+  return checkQueries;
+};
+
 const getAllArticles = (req, res, next) => {
   const author = req.query.author;
   const topic = req.query.topic;
-  const checkQueries = [];
-  if (author) {
-    checkQueries.push(fetchUser(author));
-  } else {
-    checkQueries.push(Promise.resolve("no author request"));
-  }
-  if (topic) {
-    checkQueries.push(fetchTopic(topic));
-  } else {
-    checkQueries.push(Promise.resolve("no topic request"));
-  }
-  return Promise.all(checkQueries)
+  const checkedQueries = queriesPromises(author, topic);
+  return Promise.all(checkedQueries)
     .then(([author, topic]) => {
       if (!author) {
         return Promise.reject({
