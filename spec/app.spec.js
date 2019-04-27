@@ -396,14 +396,14 @@ describe.only("/", () => {
             expect(body.comment.votes).to.eql(0);
           });
       });
-      it("PATCH no inc_votes on request body - status: 400 and error message", () => {
-        const updateVote = {};
+      it("PATCH status:200 - no inc_votes on request body, send unchanged comment", () => {
+        const updateVote = { inc_votes: undefined };
         return request(app)
           .patch("/api/comments/1")
           .send(updateVote)
-          .expect(400)
+          .expect(200)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Bad Request");
+            expect(body.comment.votes).to.eql(16);
           });
       });
       it("PATCH invalid inc_votes - status: 400 and error message", () => {

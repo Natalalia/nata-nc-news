@@ -1,6 +1,9 @@
 const connection = require("../db/connection");
 
 const changeVote = (comment_id, vote) => {
+  if (vote === undefined) {
+    vote = 0;
+  }
   return connection
     .select("votes")
     .from("comments")
