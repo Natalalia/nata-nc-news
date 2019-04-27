@@ -1,38 +1,32 @@
 const connection = require("../db/connection");
 
-const getCountComments = function(article_id) {
-  return connection("comments")
-    .count("article_id")
-    .where({ article_id: article_id })
-    .then(result => {
-      return parseInt(result[0]["count"]);
-    });
-};
-
 const fetchAllArticles = ({ author, topic, sort_by, order, article_id }) => {
-  /*
-  const counter = connection('comments')
-    .count( 'article' )
-    .where({ article_id: article_id })
-    .as('comment_count')
-    */
+  const counter = connection("comments")
+    .count("article_id")
+    .whereRaw("??=??", ["articles.article_id", "comments.article_id"])
+    .as("comment_count");
+
   return connection
-    .select("article_id", "author", "created_at", "title", "topic", "votes")
+    .select(
+      "article_id",
+      "author",
+      "created_at",
+      "title",
+      "topic",
+      "votes",
+      counter
+    )
     .from("articles")
     .modify(query => {
       if (author) query.where({ author });
       if (topic) query.where({ topic });
     })
     .orderBy(sort_by || "created_at", order || "desc")
-
     .then(articles => {
-      const articlesWithCounter = articles.map(article => {
-        return getCountComments(article["article_id"]).then(comment_counter => {
-          article["comment_count"] = comment_counter;
-          return article;
-        });
+      return articles.map(article => {
+        article["comment_count"] = parseInt(article["comment_count"]);
+        return article;
       });
-      return Promise.all(articlesWithCounter);
     });
 };
 
