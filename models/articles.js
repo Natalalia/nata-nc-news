@@ -42,7 +42,7 @@ const fetchArticle = article_id => {
           return article;
         });
       }
-      return Promise.reject({ msg: "Article not found", status: 404 });
+      return Promise.reject({ msg: "Article Not Found", status: 404 });
     });
 };
 

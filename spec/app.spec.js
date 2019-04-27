@@ -204,7 +204,7 @@ describe.only("/", () => {
           .get("/api/articles/99999")
           .expect(404)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Article not found");
+            expect(body.msg).to.equal("Article Not Found");
           });
       });
       it("PATCH status:200 - accepts an object votes which increments votes property", () => {
@@ -330,6 +330,14 @@ describe.only("/", () => {
               "body"
             );
             expect(body.comment.body).to.equal("Love your literature");
+          });
+      });
+      it("GET a non existing id in the db  - status: 404 and error message", () => {
+        return request(app)
+          .get("/api/articles/158297/comments")
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Article Not Found");
           });
       });
       it("POST an empty comment on request body - status: 400 and error message", () => {
