@@ -363,6 +363,14 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Element Not Found");
           });
       });
+      it("PUT status 405 - Returns relevant message", () => {
+        return request(app)
+          .put("/api/articles/1/comments")
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Method Not Allowed");
+          });
+      });
     });
     describe("/comments/:comment_id", () => {
       it("PATCH status:200 - accepts an object votes which increments/decrements votes property", () => {
