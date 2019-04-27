@@ -25,9 +25,7 @@ const getAllArticles = (req, res, next) => {
     checkQueries.push(Promise.resolve("no topic request"));
   }
   return Promise.all(checkQueries)
-    .then(queries => {
-      const author = queries[0];
-      const topic = queries[1];
+    .then(([author, topic]) => {
       if (!author) {
         return Promise.reject({
           status: 404,
@@ -81,14 +79,14 @@ const getAllArticleComments = (req, res, next) => {
 
 const postComment = (req, res, next) => {
   createComment(req.params.article_id, req.body.username, req.body.body)
-    .then(comment => {
-      if (comment[0]["body"] === "") {
+    .then(([comment]) => {
+      if (comment["body"] === "") {
         return Promise.reject({
           status: 400,
           msg: "Bad Request"
         });
       }
-      res.status(201).send({ comment: comment[0] });
+      res.status(201).send({ comment });
     })
     .catch(next);
 };
