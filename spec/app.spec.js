@@ -9,7 +9,7 @@ const connection = require("../db/connection");
 const chaiSorted = require("chai-sorted");
 use(chaiSorted);
 
-describe.only("/", () => {
+describe("/", () => {
   beforeEach(() => connection.seed.run());
   after(() => connection.destroy());
 
