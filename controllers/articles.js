@@ -56,7 +56,10 @@ const getArticleById = (req, res, next) => {
 };
 
 const updateVote = (req, res, next) => {
-  incrementVote(req.params.article_id, req.body.inc_votes)
+  fetchArticle(req.params.article_id)
+    .then(() => {
+      return incrementVote(req.params.article_id, req.body.inc_votes);
+    })
     .then(article => {
       res.status(200).send({ article });
     })

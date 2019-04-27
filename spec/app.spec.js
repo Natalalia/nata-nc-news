@@ -247,6 +247,16 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Bad Request");
           });
       });
+      it("PATCH inc_votes in a non existing article in db - status: 404 and error message", () => {
+        const updateVote = { inc_votes: 5 };
+        return request(app)
+          .patch("/api/articles/1000000")
+          .send(updateVote)
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Article Not Found");
+          });
+      });
       it("PUT status: 405 - Returns relevant message", () => {
         return request(app)
           .put("/api/articles/1")
@@ -414,6 +424,16 @@ describe.only("/", () => {
           .expect(400)
           .then(({ body }) => {
             expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      xit("PATCH comment id does not exist in db - status: 404 and error message", () => {
+        const updateVote = { inc_votes: 5 };
+        return request(app)
+          .patch("/api/comments/100000")
+          .send(updateVote)
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Comment Not Found");
           });
       });
       it("DELETE status: 204 - delete the given comment by its id", () => {
