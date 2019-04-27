@@ -426,7 +426,7 @@ describe.only("/", () => {
             expect(body.msg).to.equal("Bad Request");
           });
       });
-      xit("PATCH comment id does not exist in db - status: 404 and error message", () => {
+      it("PATCH comment id does not exist in db - status: 404 and error message", () => {
         const updateVote = { inc_votes: 5 };
         return request(app)
           .patch("/api/comments/100000")

@@ -1,5 +1,18 @@
 const connection = require("../db/connection");
 
+const fetchComment = comment_id => {
+  return connection
+    .select("*")
+    .from("comments")
+    .where("comment_id", "=", comment_id)
+    .then(comments => {
+      if (comments.length !== 0) {
+        return comments[0];
+      }
+      return Promise.reject({ msg: "Comment Not Found", status: 404 });
+    });
+};
+
 const changeVote = (comment_id, vote) => {
   if (vote === undefined) {
     vote = 0;
@@ -26,4 +39,4 @@ const removeComment = comment_id => {
     .del();
 };
 
-module.exports = { changeVote, removeComment };
+module.exports = { changeVote, removeComment, fetchComment };

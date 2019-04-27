@@ -1,7 +1,14 @@
-const { changeVote, removeComment } = require("../models/comments");
+const {
+  changeVote,
+  removeComment,
+  fetchComment
+} = require("../models/comments");
 
 const updateVote = (req, res, next) => {
-  changeVote(req.params.comment_id, req.body.inc_votes)
+  fetchComment(req.params.comment_id)
+    .then(() => {
+      return changeVote(req.params.comment_id, req.body.inc_votes);
+    })
     .then(comment => {
       res.status(200).send({ comment });
     })
