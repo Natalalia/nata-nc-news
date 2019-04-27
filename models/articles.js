@@ -9,7 +9,13 @@ const getCountComments = function(article_id) {
     });
 };
 
-const fetchAllArticles = ({ author, topic, sort_by, order }) => {
+const fetchAllArticles = ({ author, topic, sort_by, order, article_id }) => {
+  /*
+  const counter = connection('comments')
+    .count( 'article' )
+    .where({ article_id: article_id })
+    .as('comment_count')
+    */
   return connection
     .select("article_id", "author", "created_at", "title", "topic", "votes")
     .from("articles")
@@ -18,6 +24,7 @@ const fetchAllArticles = ({ author, topic, sort_by, order }) => {
       if (topic) query.where({ topic });
     })
     .orderBy(sort_by || "created_at", order || "desc")
+
     .then(articles => {
       const articlesWithCounter = articles.map(article => {
         return getCountComments(article["article_id"]).then(comment_counter => {
@@ -30,17 +37,17 @@ const fetchAllArticles = ({ author, topic, sort_by, order }) => {
 };
 
 const fetchArticle = article_id => {
+  const counter = connection("comments")
+    .count("article_id")
+    .where({ article_id: article_id })
+    .as("comment_count");
   return connection
-    .select("*")
+    .select("*", counter)
     .from("articles")
     .where("article_id", "=", article_id)
     .then(articles => {
       if (articles.length !== 0) {
-        const article = articles[0];
-        return getCountComments(article["article_id"]).then(comment_counter => {
-          article["comment_count"] = comment_counter;
-          return article;
-        });
+        return articles[0];
       }
       return Promise.reject({ msg: "Article Not Found", status: 404 });
     });
