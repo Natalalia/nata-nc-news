@@ -228,13 +228,13 @@ describe.only("/", () => {
           });
       });
       it("PATCH status: 200 - no inc_votes on request body returns the article object with not modifications", () => {
-        const updateVote = {};
+        const updateVote = { inc_votes: undefined };
         return request(app)
           .patch("/api/articles/1")
           .send(updateVote)
           .expect(200)
           .then(({ body }) => {
-            expect(body.article.votes).to.eql(body.article.votes);
+            expect(body.article.votes).to.eql(100);
           });
       });
       it("PATCH invalid inc_votes - status: 400 and error message", () => {
