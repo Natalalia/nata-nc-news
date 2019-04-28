@@ -15,6 +15,14 @@ exports.handlePsqlError = (err, req, res, next) => {
     "23503": {
       status: 404,
       msg: "Element Not Found"
+    },
+    "2201W": {
+      status: 400,
+      msg: "Bad Request"
+    },
+    "2201X": {
+      status: 400,
+      msg: "Bad Request"
     }
   };
 
@@ -44,5 +52,6 @@ exports.methodNotAllowed = (req, res) => {
 };
 
 exports.handle500 = (err, req, res, next) => {
+  //console.log(err);
   res.status(500).send({ msg: "Internal Server Error" });
 };

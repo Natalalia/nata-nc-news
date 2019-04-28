@@ -164,7 +164,7 @@ describe("/", () => {
             expect(body.articles[0]["article_id"]).to.equal(11);
           });
       });
-      it(" GET sort for a column that does not exist - status 400 and error message", () => {
+      it("GET sort for a column that does not exist - status 400 and error message", () => {
         return request(app)
           .get("/api/articles?sort_by=notAColumn")
           .expect(400)
@@ -172,7 +172,7 @@ describe("/", () => {
             expect(body.msg).to.equal("Bad Request");
           });
       });
-      it(" GET search for an author that is not in the database - status 404 and error message", () => {
+      it("GET search for an author that is not in the database - status 404 and error message", () => {
         return request(app)
           .get("/api/articles?author=natalia")
           .expect(404)
@@ -180,12 +180,44 @@ describe("/", () => {
             expect(body.msg).to.equal("Author Not Found");
           });
       });
-      it(" GET search for a topic that is not in the database - status 404 and error message", () => {
+      it("GET search for a topic that is not in the database - status 404 and error message", () => {
         return request(app)
           .get("/api/articles?topic=geography")
           .expect(404)
           .then(({ body }) => {
             expect(body.msg).to.equal("Topic Not Found");
+          });
+      });
+      it("GET limit for non valid number - status 400 and error message", () => {
+        return request(app)
+          .get("/api/articles?limit=-5")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("GET page for non valid number - status 400 and error message", () => {
+        return request(app)
+          .get("/api/articles?p=-6")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("GET page for non valid number - status 400 and error message", () => {
+        return request(app)
+          .get("/api/articles?limit=dog")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("GET page for non valid number - status 400 and error message", () => {
+        return request(app)
+          .get("/api/articles?p=dog")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
           });
       });
       it("PATCH status: 405 - Returns relevant message", () => {

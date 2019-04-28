@@ -28,6 +28,20 @@ const queriesPromises = (username, slug) => {
 const getAllArticles = (req, res, next) => {
   const author = req.query.author;
   const topic = req.query.topic;
+  const limit = parseInt(req.query.limit);
+  const p = parseInt(req.query.p);
+  if (req.query.limit && isNaN(limit)) {
+    return next({
+      status: 400,
+      msg: "Bad Request"
+    });
+  }
+  if (req.query.p && isNaN(p)) {
+    return next({
+      status: 400,
+      msg: "Bad Request"
+    });
+  }
   const checkedQueries = queriesPromises(author, topic);
   return Promise.all(checkedQueries)
     .then(([author, topic]) => {
