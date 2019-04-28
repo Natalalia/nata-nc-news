@@ -86,6 +86,20 @@ const updateVote = (req, res, next) => {
 const getAllArticleComments = (req, res, next) => {
   const { article_id } = req.params;
   const { sort_by, order, limit, p } = req.query;
+  const limitCheck = parseInt(limit);
+  const pCheck = parseInt(p);
+  if (limit && isNaN(limitCheck)) {
+    return next({
+      status: 400,
+      msg: "Bad Request"
+    });
+  }
+  if (p && isNaN(pCheck)) {
+    return next({
+      status: 400,
+      msg: "Bad Request"
+    });
+  }
   fetchArticle(article_id)
     .then(() => {
       return fetchArticleComments(article_id, sort_by, order, limit, p);

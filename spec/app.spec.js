@@ -440,6 +440,38 @@ describe("/", () => {
             expect(body.msg).to.equal("Article Not Found");
           });
       });
+      it("GET limit for non valid number - status 400 and error message", () => {
+        return request(app)
+          .get("/api/articles/1/comments?limit=-5")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("GET page for non valid number - status 400 and error message", () => {
+        return request(app)
+          .get("/api/articles/1/comments?p=-6")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("GET page for non valid number - status 400 and error message", () => {
+        return request(app)
+          .get("/api/articles/1/comments?limit=dog")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("GET page for non valid number - status 400 and error message", () => {
+        return request(app)
+          .get("/api/articles/1/comments?p=dog")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
       it("POST an empty comment on request body - status: 400 and error message", () => {
         const newPost = {
           username: "butter_bridge",
