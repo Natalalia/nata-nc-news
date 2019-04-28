@@ -147,6 +147,14 @@ describe("/", () => {
             expect(body.articles).to.have.lengthOf(5);
           });
       });
+      it("GET status: 200 - defaults the limit of articles shown for page to 10", () => {
+        return request(app)
+          .get("/api/articles?")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.articles).to.have.lengthOf(10);
+          });
+      });
       it(" GET sort for a column that does not exist - status 400 and error message", () => {
         return request(app)
           .get("/api/articles?sort_by=notAColumn")
