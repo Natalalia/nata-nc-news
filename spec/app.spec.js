@@ -41,7 +41,7 @@ describe("/", () => {
           });
       });
     });
-    describe("/articles", () => {
+    describe.only("/articles", () => {
       it("GET status: 200 - Returns an array of article objects", () => {
         return request(app)
           .get("/api/articles")
@@ -137,6 +137,14 @@ describe("/", () => {
               votes: 100,
               comment_count: 13
             });
+          });
+      });
+      it("GET status: 200 - limits the articles shown for page", () => {
+        return request(app)
+          .get("/api/articles?limit=5")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.articles).to.have.lengthOf(5);
           });
       });
       it(" GET sort for a column that does not exist - status 400 and error message", () => {
