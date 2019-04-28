@@ -77,13 +77,22 @@ const incrementVote = (article_id, vote) => {
     });
 };
 
-const fetchArticleComments = (article_id, sort_by, order, limit) => {
+const fetchArticleComments = (article_id, sort_by, order, limit, p) => {
+  let offset = 0;
+  if (p) {
+    if (limit) {
+      offset = limit * (p - 1);
+    } else {
+      offset = 10 * (p - 1);
+    }
+  }
   return connection("comments")
     .select("comment_id", "votes", "created_at", "author", "body")
     .from("comments")
     .where("article_id", "=", article_id)
     .orderBy(sort_by || "created_at", order || "desc")
-    .limit(limit || 10);
+    .limit(limit || 10)
+    .offset(offset);
 };
 
 const createComment = (article_id, username, body) => {

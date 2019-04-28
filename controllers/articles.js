@@ -85,10 +85,10 @@ const updateVote = (req, res, next) => {
 
 const getAllArticleComments = (req, res, next) => {
   const { article_id } = req.params;
-  const { sort_by, order, limit } = req.query;
+  const { sort_by, order, limit, p } = req.query;
   fetchArticle(article_id)
     .then(() => {
-      return fetchArticleComments(article_id, sort_by, order, limit);
+      return fetchArticleComments(article_id, sort_by, order, limit, p);
     })
     .then(comments => {
       res.status(200).send({ comments });

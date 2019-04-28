@@ -387,6 +387,15 @@ describe("/", () => {
             expect(body.comments).to.have.lengthOf(10);
           });
       });
+      it("GET status: 200 - shows second page with the limited comments", () => {
+        return request(app)
+          .get("/api/articles/1/comments?p=2")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.comments).to.have.lengthOf(3);
+            expect(body.comments[0]["comment_id"]).to.equal(12);
+          });
+      });
       it("GET article with no comments - status: 200 and a message", () => {
         return request(app)
           .get("/api/articles/2/comments")
