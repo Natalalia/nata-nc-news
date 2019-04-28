@@ -396,6 +396,14 @@ describe("/", () => {
             expect(body.comments[0]["comment_id"]).to.equal(12);
           });
       });
+      it("GET status: 200 - shows page with no articles", () => {
+        return request(app)
+          .get("/api/articles/1/comments?p=200000")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.comments).to.have.lengthOf(0);
+          });
+      });
       it("GET article with no comments - status: 200 and a message", () => {
         return request(app)
           .get("/api/articles/2/comments")
