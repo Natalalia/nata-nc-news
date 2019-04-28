@@ -19,7 +19,7 @@ describe("/", () => {
         .get("/api")
         .expect(200)
         .then(({ body }) => {
-          expect(body.ok).to.equal(true);
+          expect(body).to.be.an("object");
         });
     });
     describe("/topics", () => {
