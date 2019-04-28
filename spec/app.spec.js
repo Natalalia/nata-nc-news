@@ -164,6 +164,14 @@ describe("/", () => {
             expect(body.articles[0]["article_id"]).to.equal(11);
           });
       });
+      it("GET status: 200 - shows page with no articles", () => {
+        return request(app)
+          .get("/api/articles?p=200000")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.articles).to.have.lengthOf(0);
+          });
+      });
       it("GET sort for a column that does not exist - status 400 and error message", () => {
         return request(app)
           .get("/api/articles?sort_by=notAColumn")
