@@ -1,6 +1,6 @@
 const connection = require("../db/connection");
 
-const fetchAllArticles = ({ author, topic, sort_by, order, article_id }) => {
+const fetchAllArticles = ({ author, topic, sort_by, order }) => {
   const counter = connection("comments")
     .count("article_id")
     .whereRaw("??=??", ["articles.article_id", "comments.article_id"])
