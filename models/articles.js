@@ -77,12 +77,13 @@ const incrementVote = (article_id, vote) => {
     });
 };
 
-const fetchArticleComments = (article_id, sort_by, order) => {
+const fetchArticleComments = (article_id, sort_by, order, limit) => {
   return connection("comments")
     .select("comment_id", "votes", "created_at", "author", "body")
     .from("comments")
     .where("article_id", "=", article_id)
-    .orderBy(sort_by || "created_at", order || "desc");
+    .orderBy(sort_by || "created_at", order || "desc")
+    .limit(limit || 10);
 };
 
 const createComment = (article_id, username, body) => {

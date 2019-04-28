@@ -41,7 +41,7 @@ describe("/", () => {
           });
       });
     });
-    describe.only("/articles", () => {
+    describe("/articles", () => {
       it("GET status: 200 - Returns an array of article objects", () => {
         return request(app)
           .get("/api/articles")
@@ -331,7 +331,7 @@ describe("/", () => {
           });
       });
     });
-    describe("/articles/article_id/comments", () => {
+    describe.only("/articles/article_id/comments", () => {
       it("GET status: 200 - Returns array of comments objects with relevant keys", () => {
         return request(app)
           .get("/api/articles/1/comments")
@@ -371,6 +371,22 @@ describe("/", () => {
             });
           });
       });
+      it("GET status: 200 - limits the number of comments shown", () => {
+        return request(app)
+          .get("/api/articles/1/comments?limit=5")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.comments).to.have.lengthOf(5);
+          });
+      });
+      it("GET status: 200 - defaults the number of comments shown to 10", () => {
+        return request(app)
+          .get("/api/articles/1/comments")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.comments).to.have.lengthOf(10);
+          });
+      });
       it("GET article with no comments - status: 200 and a message", () => {
         return request(app)
           .get("/api/articles/2/comments")
@@ -379,7 +395,7 @@ describe("/", () => {
             expect(body.comments).to.have.lengthOf(0);
           });
       });
-      it(" GET sort for a column that does not exist - status 400 and error message", () => {
+      it("GET sort for a column that does not exist - status 400 and error message", () => {
         return request(app)
           .get("/api/articles/1/comments?sort_by=notAColumn")
           .expect(400)
