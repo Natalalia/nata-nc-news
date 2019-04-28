@@ -149,10 +149,19 @@ describe("/", () => {
       });
       it("GET status: 200 - defaults the limit of articles shown for page to 10", () => {
         return request(app)
-          .get("/api/articles?")
+          .get("/api/articles")
           .expect(200)
           .then(({ body }) => {
             expect(body.articles).to.have.lengthOf(10);
+          });
+      });
+      it("GET status: 200 - shows second page with the limited articles", () => {
+        return request(app)
+          .get("/api/articles?p=2")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.articles).to.have.lengthOf(2);
+            expect(body.articles[0]["article_id"]).to.equal(11);
           });
       });
       it(" GET sort for a column that does not exist - status 400 and error message", () => {

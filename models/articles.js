@@ -1,6 +1,14 @@
 const connection = require("../db/connection");
 
-const fetchAllArticles = ({ author, topic, sort_by, order, limit }) => {
+const fetchAllArticles = ({ author, topic, sort_by, order, limit, p }) => {
+  let offset = 0;
+  if (p) {
+    if (limit) {
+      offset = limit * (p - 1);
+    } else {
+      offset = 10 * (p - 1);
+    }
+  }
   const counter = connection("comments")
     .count("article_id")
     .whereRaw("??=??", ["articles.article_id", "comments.article_id"])
@@ -23,6 +31,7 @@ const fetchAllArticles = ({ author, topic, sort_by, order, limit }) => {
     })
     .orderBy(sort_by || "created_at", order || "desc")
     .limit(limit || 10)
+    .offset(offset)
     .then(articles => {
       return articles.map(article => {
         article["comment_count"] = parseInt(article["comment_count"]);
