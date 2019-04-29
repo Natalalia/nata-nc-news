@@ -133,6 +133,12 @@ const postArticle = (req, res, next) => {
     req.body.body
   )
     .then(([article]) => {
+      if (article["body"] === "" || article["title"] === "") {
+        return Promise.reject({
+          status: 400,
+          msg: "Bad Request"
+        });
+      }
       res.status(201).send({ article });
     })
     .catch(next);

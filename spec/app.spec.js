@@ -197,6 +197,51 @@ describe("/", () => {
             expect(body.article.body).to.equal("Tururu: tururero tururu...");
           });
       });
+      it("POST an empty article on request body - status: 400 and error message", () => {
+        const newPost = {
+          username: "butter_bridge",
+          title: "New Post",
+          topic: "mitch",
+          body: ""
+        };
+        return request(app)
+          .post("/api/articles")
+          .send(newPost)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("POST an empty article on request title - status: 400 and error message", () => {
+        const newPost = {
+          username: "butter_bridge",
+          title: "",
+          topic: "mitch",
+          body: "Tururu: tururero tururu..."
+        };
+        return request(app)
+          .post("/api/articles")
+          .send(newPost)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("POST a non existing author in the db on request body - status: 404 and error message", () => {
+        const newPost = {
+          username: "nata",
+          title: "New Post",
+          topic: "mitch",
+          body: "Love your literature"
+        };
+        return request(app)
+          .post("/api/articles")
+          .send(newPost)
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Element Not Found");
+          });
+      });
       it("GET sort for a column that does not exist - status 400 and error message", () => {
         return request(app)
           .get("/api/articles?sort_by=notAColumn")
