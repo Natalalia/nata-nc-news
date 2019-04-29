@@ -14,4 +14,6 @@ const fetchTopic = slug => {
     });
 };
 
-module.exports = { fetchAllTopics, fetchTopic };
+const createTopic = () => {};
+
+module.exports = { fetchAllTopics, fetchTopic, createTopic };

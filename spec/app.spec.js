@@ -22,7 +22,7 @@ describe("/", () => {
           expect(body).to.be.an("object");
         });
     });
-    describe("/topics", () => {
+    describe.only("/topics", () => {
       it("GET status: 200 - Returns an array of all the topics objects, with its relevant keys", () => {
         return request(app)
           .get("/api/topics")
@@ -38,6 +38,20 @@ describe("/", () => {
           .expect(405)
           .then(({ body }) => {
             expect(body.msg).to.equal("Method Not Allowed");
+          });
+      });
+      it("POST status: 201 - responds with the topic object", () => {
+        const newTopic = {
+          description: "Best children books",
+          slug: "Reading"
+        };
+        return request(app)
+          .post("/api/topics")
+          .send(newTopic)
+          .expect(201)
+          .then(({ body }) => {
+            expect(body.topic).to.contain.keys("description", "slug");
+            //expect(body.article.body).to.equal("Tururu: tururero tururu...");
           });
       });
     });
@@ -308,7 +322,7 @@ describe("/", () => {
       });
     });
 
-    describe.only("/articles/:article_id", () => {
+    describe("/articles/:article_id", () => {
       it("GET status: 200 - Returns an article object with relevant keys", () => {
         return request(app)
           .get("/api/articles/2")
