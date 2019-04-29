@@ -16,7 +16,11 @@ const getUser = (req, res, next) => {
 };
 
 const postUser = (req, res, next) => {
-  createUser();
+  createUser(req.body.username, req.body.avatar_url, req.body.name)
+    .then(([user]) => {
+      res.status(201).send({ user });
+    })
+    .catch(next);
 };
 
 module.exports = { getUser, postUser };

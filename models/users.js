@@ -11,6 +11,15 @@ const fetchUser = username => {
     });
 };
 
-const createUser = () => {};
+const createUser = (username, avatar, name) => {
+  const newUser = {
+    username: username,
+    avatar_url: avatar,
+    name: name
+  };
+  return connection("users")
+    .insert(newUser)
+    .returning("*");
+};
 
 module.exports = { fetchUser, createUser };

@@ -727,7 +727,7 @@ describe("/", () => {
           .expect(201)
           .then(({ body }) => {
             expect(body.user).to.contain.keys("username", "avatar_url", "name");
-            //expect(body.topic.slug).to.equal("Reading");
+            expect(body.user.username).to.equal("Pispy");
           });
       });
     });
