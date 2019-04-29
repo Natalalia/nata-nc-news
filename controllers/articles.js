@@ -126,7 +126,16 @@ const postComment = (req, res, next) => {
 };
 
 const postArticle = (req, res, next) => {
-  createArticle();
+  createArticle(
+    req.body.username,
+    req.body.title,
+    req.body.topic,
+    req.body.body
+  )
+    .then(([article]) => {
+      res.status(201).send({ article });
+    })
+    .catch(next);
 };
 
 module.exports = {

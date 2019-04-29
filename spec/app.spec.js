@@ -188,12 +188,13 @@ describe("/", () => {
               "author",
               "title",
               "article_id",
-              " topic",
+              "topic",
               "created_at",
               "votes",
-              "comment_count"
+              "comment_count",
+              "body"
             );
-            //expect(body.article.body).to.equal("Tururu: tururero tururu...");
+            expect(body.article.body).to.equal("Tururu: tururero tururu...");
           });
       });
       it("GET sort for a column that does not exist - status 400 and error message", () => {

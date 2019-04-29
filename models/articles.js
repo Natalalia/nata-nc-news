@@ -106,7 +106,28 @@ const createComment = (article_id, username, body) => {
     .returning("*");
 };
 
-const createArticle = () => {};
+const createArticle = (username, title, topic, body) => {
+  const newPost = {
+    author: username,
+    title: title,
+    topic: topic,
+    body: body
+  };
+  return connection("articles")
+    .insert(newPost)
+    .returning("*")
+    .then(([article]) => {
+      const article_id = article["article_id"];
+      const counter = connection("comments")
+        .count("article_id")
+        .where({ article_id: article_id })
+        .as("comment_count");
+      return connection
+        .select("*", counter)
+        .from("articles")
+        .where("article_id", "=", article_id);
+    });
+};
 
 module.exports = {
   fetchAllArticles,
