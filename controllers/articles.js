@@ -3,7 +3,8 @@ const {
   fetchArticle,
   incrementVote,
   fetchArticleComments,
-  createComment
+  createComment,
+  createArticle
 } = require("../models/articles");
 
 const { fetchUser } = require("../models/users");
@@ -124,10 +125,15 @@ const postComment = (req, res, next) => {
     .catch(next);
 };
 
+const postArticle = (req, res, next) => {
+  createArticle();
+};
+
 module.exports = {
   getAllArticles,
   getArticleById,
   updateVote,
   getAllArticleComments,
-  postComment
+  postComment,
+  postArticle
 };

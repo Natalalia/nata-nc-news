@@ -41,7 +41,7 @@ describe("/", () => {
           });
       });
     });
-    describe("/articles", () => {
+    describe.only("/articles", () => {
       it("GET status: 200 - Returns an array of article objects", () => {
         return request(app)
           .get("/api/articles")
@@ -170,6 +170,30 @@ describe("/", () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.articles).to.have.lengthOf(0);
+          });
+      });
+      it("POST status: 201 - responds with the new article object", () => {
+        const newPost = {
+          username: "butter_bridge",
+          title: "New Post",
+          topic: "mitch",
+          body: "Tururu: tururero tururu..."
+        };
+        return request(app)
+          .post("/api/articles")
+          .send(newPost)
+          .expect(201)
+          .then(({ body }) => {
+            expect(body.article).to.contain.keys(
+              "author",
+              "title",
+              "article_id",
+              " topic",
+              "created_at",
+              "votes",
+              "comment_count"
+            );
+            //expect(body.article.body).to.equal("Tururu: tururero tururu...");
           });
       });
       it("GET sort for a column that does not exist - status 400 and error message", () => {
@@ -331,7 +355,7 @@ describe("/", () => {
           });
       });
     });
-    describe.only("/articles/article_id/comments", () => {
+    describe("/articles/article_id/comments", () => {
       it("GET status: 200 - Returns array of comments objects with relevant keys", () => {
         return request(app)
           .get("/api/articles/1/comments")

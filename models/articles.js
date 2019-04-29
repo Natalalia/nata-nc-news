@@ -106,10 +106,13 @@ const createComment = (article_id, username, body) => {
     .returning("*");
 };
 
+const createArticle = () => {};
+
 module.exports = {
   fetchAllArticles,
   fetchArticle,
   incrementVote,
   fetchArticleComments,
-  createComment
+  createComment,
+  createArticle
 };

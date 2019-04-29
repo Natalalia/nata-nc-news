@@ -5,12 +5,14 @@ const {
   getArticleById,
   updateVote,
   getAllArticleComments,
-  postComment
+  postComment,
+  postArticle
 } = require("../controllers/articles");
 
 articlesRouter
   .route("/")
   .get(getAllArticles)
+  .post(postArticle)
   .all(methodNotAllowed);
 
 articlesRouter
