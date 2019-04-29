@@ -199,6 +199,38 @@ describe("/", () => {
             expect(body.articles).to.have.lengthOf(0);
           });
       });
+      it("GET status: 200 - shows object with articles array and total count property", () => {
+        return request(app)
+          .get("/api/articles")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body).to.contain.keys("articles", "total_count");
+          });
+      });
+      it("GET status: 200 - returns total number of articles when no filter is passed", () => {
+        return request(app)
+          .get("/api/articles")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body["total_count"]).to.eql(12);
+          });
+      });
+      it("GET status: 200 - returns total number of articles when author query is passed", () => {
+        return request(app)
+          .get("/api/articles?author=icellusedkars")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body["total_count"]).to.eql(6);
+          });
+      });
+      it("GET status: 200 - returns total number of articles when topic query is passed", () => {
+        return request(app)
+          .get("/api/articles?topic=cats")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body["total_count"]).to.eql(1);
+          });
+      });
       it("POST status: 201 - responds with the new article object", () => {
         const newPost = {
           username: "butter_bridge",

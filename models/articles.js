@@ -1,5 +1,17 @@
 const connection = require("../db/connection");
 
+const countArticles = ({ author, topic }) => {
+  return connection("articles")
+    .count("article_id")
+    .modify(query => {
+      if (author) query.where({ author });
+      if (topic) query.where({ topic });
+    })
+    .then(total => {
+      return parseInt(total[0]["count"]);
+    });
+};
+
 const fetchAllArticles = ({ author, topic, sort_by, order, limit, p }) => {
   let offset = 0;
   if (p) {
@@ -149,5 +161,6 @@ module.exports = {
   createComment,
   createArticle,
   removeArticle,
-  removeComment
+  removeComment,
+  countArticles
 };

@@ -6,7 +6,8 @@ const {
   createComment,
   createArticle,
   removeArticle,
-  removeComment
+  removeComment,
+  countArticles
 } = require("../models/articles");
 
 const { fetchUser } = require("../models/users");
@@ -60,9 +61,13 @@ const getAllArticles = (req, res, next) => {
           msg: "Topic Not Found"
         });
       }
-      return fetchAllArticles(req.query).then(articles => {
-        res.status(200).send({ articles });
-      });
+      const articlesList = fetchAllArticles(req.query);
+      const count = countArticles(req.query);
+      return Promise.all([articlesList, count]).then(
+        ([articles, total_count]) => {
+          res.status(200).send({ articles, total_count });
+        }
+      );
     })
     .catch(next);
 };
