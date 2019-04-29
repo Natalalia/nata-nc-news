@@ -11,4 +11,6 @@ const fetchUser = username => {
     });
 };
 
-module.exports = { fetchUser };
+const createUser = () => {};
+
+module.exports = { fetchUser, createUser };

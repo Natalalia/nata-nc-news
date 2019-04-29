@@ -22,7 +22,7 @@ describe("/", () => {
           expect(body).to.be.an("object");
         });
     });
-    describe.only("/topics", () => {
+    describe("/topics", () => {
       it("GET status: 200 - Returns an array of all the topics objects, with its relevant keys", () => {
         return request(app)
           .get("/api/topics")
@@ -711,6 +711,23 @@ describe("/", () => {
           .expect(405)
           .then(({ body }) => {
             expect(body.msg).to.equal("Method Not Allowed");
+          });
+      });
+    });
+    describe.only("/users", () => {
+      it("POST status: 201 - responds with the user object", () => {
+        const newUser = {
+          username: "Pispy",
+          avatar_url: "",
+          name: "Natalia"
+        };
+        return request(app)
+          .post("/api/users")
+          .send(newUser)
+          .expect(201)
+          .then(({ body }) => {
+            expect(body.user).to.contain.keys("username", "avatar_url", "name");
+            //expect(body.topic.slug).to.equal("Reading");
           });
       });
     });
