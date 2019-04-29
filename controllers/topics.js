@@ -11,6 +11,12 @@ const getAllTopics = (req, res, next) => {
 const postTopic = (req, res, next) => {
   createTopic(req.body.description, req.body.slug)
     .then(([topic]) => {
+      if (topic["slug"] === "") {
+        return Promise.reject({
+          status: 400,
+          msg: "Bad Request"
+        });
+      }
       res.status(201).send({ topic });
     })
     .catch(next);

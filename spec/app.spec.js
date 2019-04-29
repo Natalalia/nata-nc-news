@@ -32,14 +32,6 @@ describe("/", () => {
             expect(body.topics[0]).to.contain.keys("description", "slug");
           });
       });
-      it("PATCH status: 405 - Returns relevant message", () => {
-        return request(app)
-          .patch("/api/topics")
-          .expect(405)
-          .then(({ body }) => {
-            expect(body.msg).to.equal("Method Not Allowed");
-          });
-      });
       it("POST status: 201 - responds with the topic object", () => {
         const newTopic = {
           description: "Best children books",
@@ -52,6 +44,27 @@ describe("/", () => {
           .then(({ body }) => {
             expect(body.topic).to.contain.keys("description", "slug");
             expect(body.topic.slug).to.equal("Reading");
+          });
+      });
+      it("POST an empty slug on request body - status: 400 and error message", () => {
+        const newTopic = {
+          description: "Best children books",
+          slug: ""
+        };
+        return request(app)
+          .post("/api/topics")
+          .send(newTopic)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("PATCH status: 405 - Returns relevant message", () => {
+        return request(app)
+          .patch("/api/topics")
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Method Not Allowed");
           });
       });
     });
