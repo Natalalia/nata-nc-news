@@ -266,7 +266,7 @@ describe("/", () => {
           .send(newPost)
           .expect(404)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Element Not Found");
+            expect(body.msg).to.equal("Author Not Found");
           });
       });
       it("GET sort for a column that does not exist - status 400 and error message", () => {
@@ -611,6 +611,19 @@ describe("/", () => {
             expect(body.msg).to.equal("Bad Request");
           });
       });
+      it("POST a comment with no username on request body - status: 404 and error message", () => {
+        const newPost = {
+          username: "",
+          body: "Turururu"
+        };
+        return request(app)
+          .post("/api/articles/1/comments")
+          .send(newPost)
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Author Not Found");
+          });
+      });
       it("POST a non existing author in the db on request body - status: 404 and error message", () => {
         const newPost = {
           username: "nata",
@@ -621,7 +634,7 @@ describe("/", () => {
           .send(newPost)
           .expect(404)
           .then(({ body }) => {
-            expect(body.msg).to.equal("Element Not Found");
+            expect(body.msg).to.equal("Author Not Found");
           });
       });
       it("PUT status 405 - Returns relevant message", () => {

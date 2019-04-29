@@ -14,7 +14,7 @@ exports.handlePsqlError = (err, req, res, next) => {
     },
     "23503": {
       status: 404,
-      msg: "Element Not Found"
+      msg: "Author Not Found"
     },
     "2201W": {
       status: 400,
