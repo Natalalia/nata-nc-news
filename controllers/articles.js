@@ -152,6 +152,12 @@ const deleteArticle = (req, res, next) => {
       return removeArticle(req.params.article_id);
     })
     .then(linesDeleted => {
+      if (linesDeleted === 0) {
+        return Promise.reject({
+          status: 404,
+          msg: "Article Not Found"
+        });
+      }
       res.sendStatus(204);
     })
     .catch(next);

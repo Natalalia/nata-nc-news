@@ -377,6 +377,22 @@ describe("/", () => {
           .delete("/api/articles/1")
           .expect(204);
       });
+      it("DELETE a non existing article - status: 404 and an error message", () => {
+        return request(app)
+          .delete("/api/articles/99999999")
+          .expect(404)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Article Not Found");
+          });
+      });
+      it("DELETE an invalid article - status: 400 and an error message", () => {
+        return request(app)
+          .delete("/api/articles/dog")
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
       it("PATCH invalid inc_votes - status: 400 and error message", () => {
         const updateVote = { inc_votes: "cat" };
         return request(app)
