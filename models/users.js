@@ -22,6 +22,8 @@ const createUser = (username, avatar, name) => {
     .returning("*");
 };
 
-const fetchAllUsers = () => {};
+const fetchAllUsers = () => {
+  return connection.select("*").from("users");
+};
 
 module.exports = { fetchUser, createUser, fetchAllUsers };

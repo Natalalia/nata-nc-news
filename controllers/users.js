@@ -30,7 +30,11 @@ const postUser = (req, res, next) => {
 };
 
 const getAllUsers = (req, res, next) => {
-  fetchAllUsers();
+  fetchAllUsers(req.query)
+    .then(users => {
+      res.status(200).send({ users });
+    })
+    .catch(next);
 };
 
 module.exports = { getUser, postUser, getAllUsers };
