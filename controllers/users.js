@@ -18,6 +18,12 @@ const getUser = (req, res, next) => {
 const postUser = (req, res, next) => {
   createUser(req.body.username, req.body.avatar_url, req.body.name)
     .then(([user]) => {
+      if (user["username"] === "" || user["name"] === "") {
+        return Promise.reject({
+          status: 400,
+          msg: "Bad Request"
+        });
+      }
       res.status(201).send({ user });
     })
     .catch(next);

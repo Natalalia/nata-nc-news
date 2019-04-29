@@ -730,6 +730,42 @@ describe("/", () => {
             expect(body.user.username).to.equal("Pispy");
           });
       });
+      it("POST an empty user on request username - status: 400 and error message", () => {
+        const newUser = {
+          username: "",
+          avatar_url: "",
+          name: "Natalia"
+        };
+        return request(app)
+          .post("/api/users")
+          .send(newUser)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("POST an empty user on request name - status: 400 and error message", () => {
+        const newUser = {
+          username: "Pispy",
+          avatar_url: "",
+          name: ""
+        };
+        return request(app)
+          .post("/api/users")
+          .send(newUser)
+          .expect(400)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Bad Request");
+          });
+      });
+      it("PUT status 405 - Returns relevant message", () => {
+        return request(app)
+          .put("/api/users")
+          .expect(405)
+          .then(({ body }) => {
+            expect(body.msg).to.equal("Method Not Allowed");
+          });
+      });
     });
     describe("/users/:username", () => {
       it(" GET status: 200 - Responds with a user object with its correspondent keys", () => {
