@@ -714,7 +714,7 @@ describe("/", () => {
           });
       });
     });
-    describe.only("/users", () => {
+    describe("/users", () => {
       it("POST status: 201 - responds with the user object", () => {
         const newUser = {
           username: "Pispy",
@@ -736,7 +736,11 @@ describe("/", () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.users).to.be.an("array");
-            //expect(body.users[0]).to.contain.keys("username", "avatar_url", 'name');
+            expect(body.users[0]).to.contain.keys(
+              "username",
+              "avatar_url",
+              "name"
+            );
           });
       });
       it("POST an empty user on request username - status: 400 and error message", () => {
