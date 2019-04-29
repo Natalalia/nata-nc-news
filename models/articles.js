@@ -129,7 +129,17 @@ const createArticle = (username, title, topic, body) => {
     });
 };
 
-const removeArticle = () => {};
+const removeArticle = article_id => {
+  return connection("articles")
+    .where("article_id", "=", article_id)
+    .del();
+};
+
+const removeComment = article_id => {
+  return connection("comments")
+    .where("article_id", "=", article_id)
+    .del();
+};
 
 module.exports = {
   fetchAllArticles,
@@ -138,5 +148,6 @@ module.exports = {
   fetchArticleComments,
   createComment,
   createArticle,
-  removeArticle
+  removeArticle,
+  removeComment
 };

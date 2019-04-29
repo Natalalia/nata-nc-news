@@ -5,7 +5,8 @@ const {
   fetchArticleComments,
   createComment,
   createArticle,
-  removeArticle
+  removeArticle,
+  removeComment
 } = require("../models/articles");
 
 const { fetchUser } = require("../models/users");
@@ -146,7 +147,14 @@ const postArticle = (req, res, next) => {
 };
 
 const deleteArticle = (req, res, next) => {
-  removeArticle();
+  removeComment(req.params.article_id)
+    .then(() => {
+      return removeArticle(req.params.article_id);
+    })
+    .then(linesDeleted => {
+      res.sendStatus(204);
+    })
+    .catch(next);
 };
 
 module.exports = {

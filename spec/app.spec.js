@@ -374,7 +374,7 @@ describe("/", () => {
       });
       it("DELETE status: 204 - delete the given article by its id", () => {
         return request(app)
-          .delete("/api/articles/5")
+          .delete("/api/articles/1")
           .expect(204);
       });
       it("PATCH invalid inc_votes - status: 400 and error message", () => {
