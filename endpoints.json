@@ -14,9 +14,23 @@
       ]
     }
   },
+  "POST /api/topics": {
+    "description": "adds a new topic and serves the posted topic with all its characteristics",
+    "queries": [],
+    "request_body": {
+      "description": "Best children books",
+      "slug": "Reading"
+    },
+    "exampleResponse": {
+      "topic": {
+        "description": "Best children books",
+        "slug": "Reading"
+      }
+    }
+  },
   "GET /api/articles": {
-    "description": "serves an array of all articles",
-    "queries": ["author", "topic", "sort_by", "order"],
+    "description": "serves an object with array of all articles  and article counter",
+    "queries": ["author", "topic", "sort_by", "order", "limit", "p"],
     "exampleResponse": {
       "articles": [
         {
@@ -28,7 +42,26 @@
           "votes": 0,
           "comment_count": 6
         }
-      ]
+      ],
+      "total_count": 15
+    }
+  },
+  "POST /api/articles": {
+    "description": "adds a new article and serves the posted article with all its characteristics",
+    "queries": [],
+    "request_body": {
+      "username": "Nata",
+      "title": "New Post",
+      "topic": "coding",
+      "body": "tururuuu"
+    },
+    "exampleResponse": {
+      "article": {
+        "username": "Nata",
+        "title": "New Post",
+        "topic": "coding",
+        "body": "tururuuu"
+      }
     }
   },
   "GET /api/articles/:article_id": {
@@ -64,9 +97,12 @@
       }
     }
   },
+  "DELETE /api/articles/:article_id": {
+    "description": "deletes the article and its correspondent comments and returns status: 204"
+  },
   "GET /api/articles/:article_id/comments": {
     "description": "serves an array of all comments",
-    "queries": ["sort_by", "order"],
+    "queries": ["sort_by", "order", "limit", "p"],
     "exampleResponse": {
       "comments": [
         {
@@ -76,7 +112,8 @@
           "author": "jessjelly",
           "body": "Quia quo..."
         }
-      ]
+      ],
+      "total_count": 3
     }
   },
   "POST /api/articles/:article_id/comments": {
@@ -114,6 +151,35 @@
   },
   "DELETE /api/comments/:comment_id": {
     "description": "deletes the comment and returns status: 204"
+  },
+  "POST /api/users": {
+    "description": "adds a new user and serves the posted user with all its characteristics",
+    "queries": [],
+    "request_body": {
+      "username": "pispy",
+      "avatar_url": "whatever",
+      "name": "Natalia"
+    },
+    "exampleResponse": {
+      "user": {
+        "username": "pispy",
+        "avatar_url": "whatever",
+        "name": "Natalia"
+      }
+    }
+  },
+  "GET /api/users": {
+    "description": "serves an array with all the users objects",
+    "queries": [],
+    "exampleResponse": {
+      "users": [
+        {
+          "username": "grumpy19",
+          "avatar_url": "https://www.tumbit.com/profile-image/4/original/mr-grumpy.jpg",
+          "name": "Paul Grump"
+        }
+      ]
+    }
   },
   "GET /api/users/:username": {
     "description": "serves an object with the user characteristics",

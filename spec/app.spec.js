@@ -570,7 +570,7 @@ describe("/", () => {
             expect(body).to.contain.keys("comments", "total_count");
           });
       });
-      it("GET status: 200 - returns total number of comments when no filter is passed", () => {
+      it("GET status: 200 - returns total number of comments per article", () => {
         return request(app)
           .get("/api/articles/1/comments")
           .expect(200)
