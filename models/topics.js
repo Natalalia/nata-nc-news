@@ -14,6 +14,14 @@ const fetchTopic = slug => {
     });
 };
 
-const createTopic = () => {};
+const createTopic = (description, slug) => {
+  const newTopic = {
+    description: description,
+    slug: slug
+  };
+  return connection("topics")
+    .insert(newTopic)
+    .returning("*");
+};
 
 module.exports = { fetchAllTopics, fetchTopic, createTopic };

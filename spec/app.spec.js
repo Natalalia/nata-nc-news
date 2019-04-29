@@ -51,7 +51,7 @@ describe("/", () => {
           .expect(201)
           .then(({ body }) => {
             expect(body.topic).to.contain.keys("description", "slug");
-            //expect(body.article.body).to.equal("Tururu: tururero tururu...");
+            expect(body.topic.slug).to.equal("Reading");
           });
       });
     });

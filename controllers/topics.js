@@ -9,7 +9,11 @@ const getAllTopics = (req, res, next) => {
 };
 
 const postTopic = (req, res, next) => {
-  createTopic();
+  createTopic(req.body.description, req.body.slug)
+    .then(([topic]) => {
+      res.status(201).send({ topic });
+    })
+    .catch(next);
 };
 
 module.exports = { getAllTopics, postTopic };
