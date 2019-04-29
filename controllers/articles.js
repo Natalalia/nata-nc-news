@@ -10,6 +10,8 @@ const {
   countArticles
 } = require("../models/articles");
 
+const { countComments } = require("../models/comments");
+
 const { fetchUser } = require("../models/users");
 
 const { fetchTopic } = require("../models/topics");
@@ -110,10 +112,18 @@ const getAllArticleComments = (req, res, next) => {
   }
   fetchArticle(article_id)
     .then(() => {
-      return fetchArticleComments(article_id, sort_by, order, limit, p);
+      const comments = fetchArticleComments(
+        article_id,
+        sort_by,
+        order,
+        limit,
+        p
+      );
+      const count = countComments({ article_id });
+      return Promise.all([comments, count]);
     })
-    .then(comments => {
-      res.status(200).send({ comments });
+    .then(([comments, total_count]) => {
+      res.status(200).send({ comments, total_count });
     })
     .catch(next);
 };

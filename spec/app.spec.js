@@ -562,6 +562,22 @@ describe("/", () => {
             expect(body.comments).to.have.lengthOf(0);
           });
       });
+      it("GET status: 200 - shows object with comments array and total count property", () => {
+        return request(app)
+          .get("/api/articles/1/comments")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body).to.contain.keys("comments", "total_count");
+          });
+      });
+      it("GET status: 200 - returns total number of comments when no filter is passed", () => {
+        return request(app)
+          .get("/api/articles/1/comments")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body["total_count"]).to.eql(13);
+          });
+      });
       it("GET sort for a column that does not exist - status 400 and error message", () => {
         return request(app)
           .get("/api/articles/1/comments?sort_by=notAColumn")

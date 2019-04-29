@@ -39,4 +39,13 @@ const removeComment = comment_id => {
     .del();
 };
 
-module.exports = { changeVote, removeComment, fetchComment };
+const countComments = ({ article_id }) => {
+  return connection("comments")
+    .count("comment_id")
+    .where({ article_id })
+    .then(total => {
+      return parseInt(total[0]["count"]);
+    });
+};
+
+module.exports = { changeVote, removeComment, fetchComment, countComments };
