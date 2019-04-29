@@ -4,7 +4,8 @@ const {
   incrementVote,
   fetchArticleComments,
   createComment,
-  createArticle
+  createArticle,
+  removeArticle
 } = require("../models/articles");
 
 const { fetchUser } = require("../models/users");
@@ -144,11 +145,16 @@ const postArticle = (req, res, next) => {
     .catch(next);
 };
 
+const deleteArticle = (req, res, next) => {
+  removeArticle();
+};
+
 module.exports = {
   getAllArticles,
   getArticleById,
   updateVote,
   getAllArticleComments,
   postComment,
-  postArticle
+  postArticle,
+  deleteArticle
 };

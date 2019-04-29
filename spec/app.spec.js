@@ -41,7 +41,7 @@ describe("/", () => {
           });
       });
     });
-    describe.only("/articles", () => {
+    describe("/articles", () => {
       it("GET status: 200 - Returns an array of article objects", () => {
         return request(app)
           .get("/api/articles")
@@ -308,7 +308,7 @@ describe("/", () => {
       });
     });
 
-    describe("/articles/:article_id", () => {
+    describe.only("/articles/:article_id", () => {
       it("GET status: 200 - Returns an article object with relevant keys", () => {
         return request(app)
           .get("/api/articles/2")
@@ -371,6 +371,11 @@ describe("/", () => {
           .then(({ body }) => {
             expect(body.article.votes).to.eql(100);
           });
+      });
+      it("DELETE status: 204 - delete the given article by its id", () => {
+        return request(app)
+          .delete("/api/articles/5")
+          .expect(204);
       });
       it("PATCH invalid inc_votes - status: 400 and error message", () => {
         const updateVote = { inc_votes: "cat" };

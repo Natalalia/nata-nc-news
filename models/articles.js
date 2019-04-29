@@ -129,11 +129,14 @@ const createArticle = (username, title, topic, body) => {
     });
 };
 
+const removeArticle = () => {};
+
 module.exports = {
   fetchAllArticles,
   fetchArticle,
   incrementVote,
   fetchArticleComments,
   createComment,
-  createArticle
+  createArticle,
+  removeArticle
 };
