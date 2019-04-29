@@ -730,6 +730,15 @@ describe("/", () => {
             expect(body.user.username).to.equal("Pispy");
           });
       });
+      it("GET status: 200 - Returns an array of all the users objects, with its relevant keys", () => {
+        return request(app)
+          .get("/api/users")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.users).to.be.an("array");
+            //expect(body.users[0]).to.contain.keys("username", "avatar_url", 'name');
+          });
+      });
       it("POST an empty user on request username - status: 400 and error message", () => {
         const newUser = {
           username: "",

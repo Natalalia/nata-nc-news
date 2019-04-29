@@ -1,4 +1,4 @@
-const { fetchUser, createUser } = require("../models/users");
+const { fetchUser, createUser, fetchAllUsers } = require("../models/users");
 
 const getUser = (req, res, next) => {
   const username = req.params.username;
@@ -29,4 +29,8 @@ const postUser = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = { getUser, postUser };
+const getAllUsers = (req, res, next) => {
+  fetchAllUsers();
+};
+
+module.exports = { getUser, postUser, getAllUsers };

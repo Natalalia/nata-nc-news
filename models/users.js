@@ -22,4 +22,6 @@ const createUser = (username, avatar, name) => {
     .returning("*");
 };
 
-module.exports = { fetchUser, createUser };
+const fetchAllUsers = () => {};
+
+module.exports = { fetchUser, createUser, fetchAllUsers };
