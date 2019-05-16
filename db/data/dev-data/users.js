@@ -2,8 +2,7 @@ module.exports = [
   {
     username: "tickle122",
     name: "Tom Tickle",
-    avatar_url:
-      "https://www.spiritsurfers.net/monastery/wp-content/uploads/_41500270_mrtickle.jpg"
+    avatar_url: "https://image.flaticon.com/icons/svg/145/145867.svg"
   },
   {
     username: "grumpy19",
@@ -13,24 +12,22 @@ module.exports = [
   {
     username: "happyamy2016",
     name: "Amy Happy",
-    avatar_url:
-      "https://vignette1.wikia.nocookie.net/mrmen/images/7/7f/Mr_Happy.jpg/revision/latest?cb=20140102171729"
+    avatar_url: "https://www.flaticon.com/premium-icon/icons/svg/145/145858.svg"
   },
   {
     username: "cooljmessy",
     name: "Peter Messy",
-    avatar_url: "https://i.imgur.com/WfX0Neu.jpg"
+    avatar_url: "https://image.flaticon.com/icons/svg/145/145859.svg"
   },
   {
     username: "weegembump",
     name: "Gemma Bump",
-    avatar_url:
-      "https://www.upandrunning.co.uk/media/catalog/product/cache/1/image/650x/040ec09b1e35df139433887a97daa66f/m/r/mr-bump.jpg"
+    avatar_url: "https://www.flaticon.com/premium-icon/icons/svg/145/145856.svg"
   },
   {
     username: "jessjelly",
     name: "Jess Jelly",
     avatar_url:
-      "https://s-media-cache-ak0.pinimg.com/564x/39/62/ec/3962eca164e60cf46f979c1f57d4078b.jpg"
+      "https://www.flaticon.com/premium-icon/icons/svg/1738/1738347.svg"
   }
 ];
