@@ -7,7 +7,7 @@ module.exports = [
   {
     username: "grumpy19",
     name: "Paul Grump",
-    avatar_url: "https://www.tumbit.com/profile-image/4/original/mr-grumpy.jpg"
+    avatar_url: "https://www.flaticon.com/premium-icon/icons/svg/145/145853.svg"
   },
   {
     username: "happyamy2016",
